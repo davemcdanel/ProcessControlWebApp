@@ -1,0 +1,157 @@
+ <!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="stylesheet" href="./jquery.mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+    <link rel="manifest" href="./images/dunplab-manifest-31210.json" />
+    <link rel="icon" type="image/png" href="./images/favicon_min.png" />
+		<link rel="apple-touch-icon" type="image/png" href="./images/BrowserIcon_min.png" />
+    <title>Dave's Red Smoker</title>
+	</head>
+	<body>
+		<!-- Home -->
+		<div data-role="page" id="page1" style="width:100%; height:100%; margin:0px; padding:0px; overflow-x:hidden;">
+			<div data-theme="a" data-role="header" style="width:100%; height:10%;">
+        <div id="title" style="font-weight: bold; text-align: center; width: 100%;"></div>
+        <table class="header" style="width: 100%">
+          <tr>
+            <td>ID:</td>
+            <td><input type="text" id="receiver-id" title="Input the ID from your smoker controller."></td>
+            <td><div id="status">Status: Enter smoker ID</div></td>
+            <td><button id="connect-button">Connect</button></td>
+          </tr>
+        </table>
+      </div>
+			<div data-role="content" style="width: 100%; height: 65%;">
+				<div align=right style="width: 95%; height: 5%;">
+					Download data file
+					<a href="temperatures.csv">
+						temperatures.csv
+					</a>
+				</div>
+				<div id="graphdiv2" style="width: 95%; height: 300px;">&nbsp;</div>
+				<div id="stats" style="width: 95%; height: 20%;">
+					<h1>
+						<span>Temp:
+							<font color="red">
+								<span id="temperature"></span>
+							</font>
+						</span>
+						<span>
+							&emsp; SP:
+							<font color="blue">
+								<span id="setpoint"></span>
+							</font>
+						</span>
+						<span>
+							&emsp; INT:
+							<font color="orange">
+								<span id="internal"></span>
+							</font>
+						</span>
+						<span>
+							&emsp; OP:
+							<font color="green">
+								<span id="output"></span>
+							</font>
+						</span>
+						<span>
+							<a id="refreshgraph" data-role="button">Refresh Graph</a>
+						</span>
+					</h1>
+				</div>
+			</div>
+			<div data-theme="a" data-role="footer" style="width: 100%; height: 25%;">
+				<div data-role="collapsible-set">
+					<div data-role="collapsible" data-collapsed="true">
+						<h3>
+							Setpoint
+						</h3>
+						<div data-role="fieldcontain">
+							<fieldset data-role="controlgroup">
+								<label for="set_setpoint" class="ui-hidden-accessible">
+									Setpoint:
+								</label>
+								<input name="" id="set_setpoint" placeholder="Setpoint:" value="" type="text">
+							</fieldset>
+						</div>
+					</div>
+				</div>
+				<div data-role="collapsible-set">
+					<div data-role="collapsible" data-collapsed="true">
+						<h3>
+							PID
+						</h3>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div data-role="fieldcontain">
+									<fieldset data-role="controlgroup">
+										<label for="set_prop" class="ui-hidden-accessible">
+											Prop:
+										</label>
+										<input name="" id="set_prop" placeholder="Prop:" value="" type="text">
+									</fieldset>
+								</div>
+							</div>
+							<div class="ui-block-b">
+							</div>
+							<div class="ui-block-a">
+								<div data-role="fieldcontain">
+									<fieldset data-role="controlgroup">
+										<label for="set_inter" class="ui-hidden-accessible">
+											Inter:
+										</label>
+										<input name="" id="set_inter" placeholder="Inter:" value="" type="text">
+									</fieldset>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<a data-role="button" id="savepid">Save to File</a>
+							</div>
+							<div class="ui-block-a">
+								<div data-role="fieldcontain">
+									<fieldset data-role="controlgroup">
+										<label for="set_derv" class="ui-hidden-accessible">
+											Derv:
+										</label>
+										<input name="" id="set_derv" placeholder="Derv:" value="" type="text">
+									</fieldset>
+								</div>
+							</div>
+							<div class="ui-block-b">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div data-role="collapsible-set">
+					<div data-role="collapsible" data-collapsed="true">
+						<h3>
+							Graph Settings
+						</h3>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div data-role="fieldcontain">
+									<fieldset data-role="controlgroup">
+										<label for="graphtimebase" class="ui-hidden-accessible">
+											Record Timebase:
+										</label>
+										<input name="" id="graphtimebase" placeholder="Graph Timebase:" value="" type="text">
+									</fieldset>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<a id="resetdata" data-role="button">Reset Data File</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    <script src="./jquery/1.7.2/jquery.min.js"></script>
+		<script src="./jquery.mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+		<script src="./dygraph/dygraph-combined.js"></script>
+    <script src="./peerjs/peerjs.min.js"></script>
+    <script src="./main.js"></script>
+	</body>
+</html>

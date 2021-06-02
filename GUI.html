@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html manifest="manifest.appcache">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, height=device-height"/>
+		<meta http-equiv="cache-control" content="max-age=0" />
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="expires" content="0" />
+		<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+		<meta http-equiv="pragma" content="no-cache" />
+		<!--<meta http-equiv="refresh" content="300" >-->
+    <title>Dave's Red Smoker</title>
+		<link rel="icon" type="image/png" href="./images/favicon_min.png" />
+		<link rel="apple-touch-icon" type="image/png" href="./images/BrowserIcon_min.png" />
+    <link rel="stylesheet" href="./jquery.mobile/1.2.1/jquery.mobile-1.2.1.min.css" />
+    <script src="./jquery/1.7.2/jquery.min.js"></script>
+    <script src="./jquery.mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
+		<script type="text/javascript">
+      jQuery.ajaxSetup({
+		      // Disable caching of AJAX responses
+		        cache: false
+      });
+		</script>
+  </head>
+  <body>
+    <!-- Home -->
+    <div data-role="page" id="page1" style="width:100%; height:100%;">
+      <div data-theme="a" data-role="header" style="width:100%; height:10%;">
+        <div id="title" style="font-weight: bold; text-align: center; width: 100%;"></div>
+        <table class="header" style="width:100%">
+          <tr>
+            <td><div id="receiver-id" style="font-weight: bold;" title="Copy this ID to the input on your smoker app.">ID:EMPTY</div></td>
+            <td></td>
+            <td><div id="status">Status: Waiting for new ID...</div></td>
+          </tr>
+        </table>
+      </div>
+			<div data-role="content" style="width:100%; height:65%;">
+				<div id="stats" style="width:95%; height:20%;">
+					<h1>
+						<span>Temp:
+							<font color="red">
+								<span id="temperature">999</span>
+              </font>
+						</span>
+						<span>
+							&emsp; SP:
+							<font color="blue">
+								<span id="setpoint">888</span>
+							</font>
+						</span>
+					</h1>
+					<h1>
+						<span>
+							&emsp; INT:
+							<font color="orange">
+								<span id="internal">777</span>
+							</font>
+						</span>
+						<span>
+							&emsp; OP:
+							<font color="green">
+								<span id="output">666</span>
+							</font>
+						</span>
+					</h1>
+				</div>
+			</div>
+			<div data-theme="a" data-role="footer" style="width:100%; height:25%;">
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup">
+						Setpoint:
+						<label for="set_setpoint" class="ui-hidden-accessible">
+							Setpoint:
+						</label>
+						<input name="set_setpoint" id="set_setpoint" placeholder="Setpoint:" value="210" type="range" min="200" max="250">
+						<script>$("#set_setpoint").live("change" , function() {
+							$.get("/cgi-bin/controller", ("set setpoint," + $("#set_setpoint").val()));});
+						</script>
+					</fieldset>
+				</div>
+				<div data-role="collapsible-set">
+					<div data-role="collapsible" data-collapsed="true">
+						<h3>
+							PID
+						</h3>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div data-role="fieldcontain">
+									<fieldset data-role="controlgroup">
+										<label for="set_prop" class="ui-hidden-accessible">
+											Prop:
+										</label>
+										<input name="set_prop" id="set_prop" placeholder="Prop:" value="" type="range" min="0" max =10>
+										<script>$("#set_prop").live("change" , function() {
+											$.get("/cgi-bin/controller", "set prop," + $("#set_prop").val());
+											});
+										</script>
+									</fieldset>
+								</div>
+							</div>
+							<div class="ui-block-b">
+							</div>
+							<div class="ui-block-a">
+								<div data-role="fieldcontain">
+									<fieldset data-role="controlgroup">
+										<label for="set_inter" class="ui-hidden-accessible">
+											Inter:
+										</label>
+										<input name="" id="set_inter" placeholder="Inter:" value="" type="range" min="0" max="10">
+										<script>$("#set_inter").live("change" , function() {
+											$.get("/cgi-bin/controller", "set inter," + $("#set_inter").val());});
+										</script>
+									</fieldset>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<a data-role="button" id="savepid">Save to File</a>
+									<script>$("#savepid").live("click" , function() {
+										$.get("/cgi-bin/controller", "set savePID," + "true");});
+									</script>
+							</div>
+							<div class="ui-block-a">
+								<div data-role="fieldcontain">
+									<fieldset data-role="controlgroup">
+										<label for="set_derv" class="ui-hidden-accessible">
+											Derv:
+										</label>
+										<input name="" id="set_derv" placeholder="Derv:" value="" type="range" min="0" max="10">
+										<script>$("#set_derv").live("change" , function() {
+											$.get("/cgi-bin/controller", "set derv," + $("#set_derv").val());});
+										</script>
+									</fieldset>
+								</div>
+							</div>
+							<div class="ui-block-b">
+							</div>
+						</div>
+					</div>
+				</div>
+        <div data-role="collapsible-set">
+					<div data-role="collapsible" data-collapsed="true">
+						<h3>
+							Graph Settings
+						</h3>
+						<div class="ui-grid-a">
+							<div class="ui-block-a">
+								<div data-role="fieldcontain">
+									<fieldset data-role="controlgroup">
+										<label for="graphtimebase" class="ui-hidden-accessible">
+											Record Timebase:
+										</label>
+										<input name="" id="graphtimebase" placeholder="Graph Timebase:" value="" type="text">
+										<script>$("#graphtimebase").live("change" , function() {
+												$.get("/cgi-bin/controller", "set graphtimebase," + $("#graphtimebase").val());});
+										</script>
+									</fieldset>
+								</div>
+							</div>
+							<div class="ui-block-b">
+								<a id="resetdata" data-role="button">Reset Data File</a>
+								<script>$("#resetdata").click(function() {
+										$.get("/cgi-bin/controller", "set resetdata," + "true");
+										g2.destroy();
+										initializeGraph();
+									});
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="address" style="width:95%; height:20%;">
+						<span id="add">IP:</span>
+						<script>
+							$('#add').load('/cgi-bin/controller','get IP');
+							setInterval(function(){
+								$('#add').load('/cgi-bin/controller','get IP');
+							}, 5075);
+						</script>
+				</div>
+			</div>
+		</div>
+    <script src="./peerjs/peerjs.min.js"></script>
+    <script type="text/javascript">
+        (function () {
+            var version = '0.2.3';
+            var title = document.getElementById("title");
+            title.innerHTML = 'Dave\'s Red Smoker ' + version;
+
+            var lastPeerId = null;
+            var peer = null; // Own peer object
+            var peerId = null;
+            var conn = null;
+            var recvId = document.getElementById("receiver-id");
+            var status = document.getElementById("status");
+            var temperature = document.getElementById("temperature");
+            var setpoint = document.getElementById("setpoint");
+            var internal = document.getElementById("internal");
+            var output = document.getElementById("output");
+            var set_prop = document.getElementById("set_prop");
+            var set_inter = document.getElementById("set_inter");
+            var set_derv = document.getElementById("set_derv");
+
+            // command: get or set.
+            // type: value, file.
+            // name: Name of the object.
+            // payload: value or data
+            let dataObject = { command:null, type:null, name:null, payload:null };
+
+            //get the temperatures data File
+            function readTemperatureFile(fileName) {
+              //Read InsideFolder.txt File
+              fetch(filename).then(function(response) {
+                response.text().then(function(text) {
+                  document.getElementById("appData").innerHTML = text;
+                  return text;
+                });
+              });
+            };
+
+
+            /**
+             * Create the Peer object for our end of the connection.
+             *
+             * Sets up callbacks that handle any events related to our
+             * peer object.
+             */
+            function initializePeerJS() {
+              // Create own peer object with connection to shared PeerJS server
+              peer = new Peer('SWUI_0001', {
+                debug: 2
+              });
+
+              peer.on('open', function (id) {
+              // Workaround for peer.reconnect deleting previous id
+                if (peer.id === null) {
+                  status.innerHTML = "Status: " + "Received null id from peer open.";
+                  console.log('Received null id from peer open');
+                  peer.id = lastPeerId;
+                  } else {
+                    lastPeerId = peer.id;
+                  }
+
+                  console.log('ID: ' + peer.id);
+                  recvId.innerHTML = "ID: " + peer.id;
+                  status.innerHTML = "Status: " + " Awaiting connection...";
+                });
+                peer.on('connection', function (c) {
+                    // Allow only a single connection
+                    if (conn && conn.open) {
+                        c.on('open', function() {
+                            c.send("Already connected to another client.");
+                            setTimeout(function() { c.close(); }, 500);
+                        });
+                        return;
+                    }
+
+                    conn = c;
+                    console.log("Connected to: " + conn.peer);
+                    status.innerHTML = "Status: " + "Connected to - " + conn.peer;
+                    ready();
+                });
+                peer.on('disconnected', function () {
+                    status.innerHTML = "Status: " + "Connection lost. Please reconnect.";
+                    console.log('Connection lost. Please reconnect.');
+
+                    // Workaround for peer.reconnect deleting previous id
+                    peer.id = lastPeerId;
+                    peer._lastServerId = lastPeerId;
+                    peer.reconnect();
+                });
+                peer.on('close', function() {
+                    conn = null;
+                    status.innerHTML = "Status: " + "Connection destroyed. Please check your internet conncection and refresh.";
+                    //alert(status.innerHTML);
+                    console.log('Connection destroyed.');
+                });
+                peer.on('error', function (err) {
+                    console.log(err);
+                    status.innerHTML = "Status: " + "Connect error. Please Wait...";
+                    //alert('' + err);
+                });
+            };
+
+            /**
+             * Triggered once a connection has been achieved.
+             * Defines callbacks to handle incoming data and connection events.
+             */
+            function ready() {
+                conn.on('data', function (dataObject) {
+                    console.log("Recieved: " + dataObject);
+                    console.log('Recvd: ' + dataObject.command + ' ' + dataObject.type + ' ' + dataObject.name + ' ' + dataObject.payload);
+                    switch (dataObject.command) {
+                      case 'Get':
+                        switch (dataObject.type){
+                          case 'value':
+                            switch (dataObject.name) {
+                              case 'temperature':
+                                console.log('Sent: ' + 'Set temperature ' + temperature.innerHTML);
+                                conn.send({command:'Set', type:'value', name:'temperature', payload:temperature.innerHTML});
+                                break;
+                              case 'setpoint':
+                                console.log('Sent: ' + 'Set setpoint ' + setpoint.innerHTML);
+                                conn.send({command:'Set', type:'value', name:'setpoint', payload:setpoint.innerHTML});
+                                break;
+                              case 'internal':
+                                console.log('Sent: ' + 'Set internal ' + internal.innerHTML);
+                                conn.send({command:'Set', type:'value', name:'internal', payload:internal.innerHTML});
+                                break;
+                              case 'output':
+                                console.log('Sent: ' + 'Set output ' + output.innerHTML);
+                                conn.send({command:'Set', type:'value', name:'output', payload:output.innerHTML});
+                                break;
+                              default:
+                            }
+                          case 'file':
+                            switch (dataObject.name) {
+                              case './temperatures.csv':
+                                console.log('Sent: ' + dataObject.name);
+                                conn.send({command:'Set',type:'file',name:'./temperatures.csv',payload:"junk"});
+                                break;
+                              default:
+                            }
+                            break;
+                          default:
+                        }
+                        break;
+                      case 'Set':
+                        switch (dataObject.type){
+                          case 'value':
+                            switch (dataObject.name) {
+                              // TODO: This is ok for testing. The final needs to push the data
+                              // back to the cgi so it can update the driver program.  Once updated,
+                              // the driver program will report its updated values to propagate up
+                              // through the system creating a feedback loop.
+                              case 'temperature':
+                                temperature.innerHTML = dataObject.payload;
+                                break;
+                              case 'setpoint':
+                                setpoint.innerHTML = dataObject.payload;
+                                break;
+                              case 'internal':
+                                internal.innerHTML = dataObject.payload;
+                                break;
+                              case 'output':
+                                output.innerHTML = dataObject.payload;
+                                break;
+                              case 'prop':
+                                set_prop.value = dataObject.payload;
+                                break;
+                              case 'inter':
+                                set_inter.value = dataObject.payload;
+                                break;
+                              case 'derv':
+                                set_derv.value = dataObject.payload;
+                                break;
+                              default:
+                                break;
+                            }
+                        }
+                        break;
+                      default:
+                        break;
+                    }
+                });
+                conn.on('close', function () {
+                    status.innerHTML = "Connection reset<br>Awaiting connection...";
+                    conn = null;
+                });
+            };
+            function sendRequest(){
+              $('#temperature').load('/cgi-bin/controller','get temperature');
+              $('#setpoint').load('/cgi-bin/controller','get setpoint');
+              $('#internal').load('/cgi-bin/controller','get internal');
+              $('#output').load('/cgi-bin/controller','get output');
+            };
+
+            initializePeerJS();
+        })();
+      </script>
+    </body>
+</html>
