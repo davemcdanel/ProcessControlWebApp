@@ -13,7 +13,7 @@ recvIdInput = document.getElementById("receiver-id");
 set_setpoint = document.getElementById("set_setpoint");
 connectButton = document.getElementById("connect-button");
 
-var request_string;
+var request_string; 
 var peer = null; // own peer object
 var conn = null;
 var lastPeerId = null;
