@@ -254,6 +254,7 @@ function sendRequest() {
 // Send the new setpoint
 function send_set_setpoint() {
   conn.send({ command:'Set', type:'value', name:'setpoint', payload:set_setpoint.value });
+  console.log('Sent: Set ' + 'setpoint' + ' ' + set_setpoint.value);
 }
 
 // Send the new proportional
