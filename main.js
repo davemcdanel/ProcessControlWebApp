@@ -278,7 +278,7 @@ function sendRequest() {
       }
     }
     request_itarator++;
-    if (request_itarator == request_list.length){
+    if (request_itarator >= request_list.length){
       request_itarator = 0;
     }
   }
