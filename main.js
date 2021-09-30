@@ -1,5 +1,5 @@
 //Version
-version = '0.2.8';
+version = '0.2.9';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 // DOM Elements
 title = document.getElementById("title");
@@ -186,12 +186,14 @@ function join() {
                   case 'derv':
                     break;
                   default:
+                    break;
                 }
               case 'file':
                 switch (dataObject.name) {
                   case './temperatures.csv':
                     break;
                   default:
+                    break;
                 }
               default:
                 break;
@@ -261,6 +263,7 @@ function sendRequest() {
             case 'value':
               conn.send({ command:'Get', type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:null });
               console.log('Sent: Get ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name);
+              break;
             default:
               break;
           }
@@ -270,6 +273,7 @@ function sendRequest() {
               conn.send({ command:'Set', type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
               console.log('Sent: Set ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + + dataObject_list[request_itarator].payload);
               dataObject_list[request_itarator].command = 'Get';
+              break;
             default:
               break;
           }
