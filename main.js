@@ -82,7 +82,7 @@ function getUrlParam(name) {
         return null;
     else
         return results[1];
-};
+}
 
 /* Create the Peer object for our end of the connection.
  *
@@ -131,7 +131,7 @@ function initializePeerJS() {
         console.log(err);
         alert('' + err);
     });
-};
+}
 
 /** Create the connection between the two Peers.
  *
@@ -234,14 +234,48 @@ function join() {
     conn.on('close', function () {
         status.innerHTML = "Status: " + "Connection closed.";
     });
-};
+}
 
 // Request a new piece of data every 250 milliseconds.
+//
+//function sendRequest() {
+//  if (request_itarator < request_list.length){
+//    if (conn && conn.open){
+//      conn.send({ command:'Get', type:request_list[request_itarator].type, name:request_list[request_itarator].name, payload:null });
+//      console.log('Sent: Get ' + request_list[request_itarator].type + ' ' + request_list[request_itarator].name);
+//    }
+//    request_itarator++;
+//    if (request_itarator == request_list.length){
+//      request_itarator = 0;
+//    }
+//  }
+//  setTimeout(sendRequest, 250);
+//}
+
 function sendRequest() {
-  if (request_itarator < request_list.length){
-    if (conn && conn.open){
-      conn.send({ command:'Get', type:request_list[request_itarator].type, name:request_list[request_itarator].name, payload:null });
-      console.log('Sent: Get ' + request_list[request_itarator].type + ' ' + request_list[request_itarator].name);
+  if (request_itarator < dataObject_list.length) {
+    if (conn && conn.open) {
+      switch (dataObject_list[request_itarator].command) {
+        case 'Get':
+          switch (dataObject_list[request_itarator].type) {
+            case 'value':
+              conn.send({ command:'Get', type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:null });
+              console.log('Sent: Get ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name);
+            default:
+              break;
+          }
+        case 'Set':
+          switch (dataObject_list.type) {
+            case 'value':
+              conn.send({ command:'Set', type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
+              console.log('Sent: Set ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + + dataObject_list[request_itarator].payload);
+              dataObject_list[request_itarator].command = 'Get';
+            default:
+             break;
+          }
+        default:
+          break;
+      }
     }
     request_itarator++;
     if (request_itarator == request_list.length){
@@ -249,12 +283,21 @@ function sendRequest() {
     }
   }
   setTimeout(sendRequest, 250);
-};
+}
 
 // Send the new setpoint
 function send_set_setpoint() {
-  conn.send({ command:'Set', type:'value', name:'setpoint', payload:set_setpoint.value });
-  console.log('Sent: Set ' + 'value ' + 'setpoint ' + set_setpoint.value);
+  var _itarator = 0;
+  while (_itarator < dataObject_list.length) {
+    if (dataObject_list[_itarator].name == 'setpoint'){
+      dataObject_list[_itarator].value = set_setpoint.value;
+      dataObject_list[_itarator].command = 'Set';
+      _itarator = dataObject_list.length;
+    }
+    _itarator++;
+  }
+  //conn.send({ command:'Set', type:'value', name:'setpoint', payload:set_setpoint.value });
+  //console.log('Sent: Set ' + 'value ' + 'setpoint ' + set_setpoint.value);
 }
 
 // Send the new proportional
