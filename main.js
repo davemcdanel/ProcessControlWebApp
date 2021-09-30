@@ -1,5 +1,5 @@
 //Version
-version = '0.2.6';
+version = '0.2.7';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 // DOM Elements
 title = document.getElementById("title");
@@ -19,14 +19,14 @@ var conn = null;
 var lastPeerId = null;
 var temperatures = null;
 var request_itarator = 0;
-var dataObject_list = [{command:null, type:'value', name:'temperature', payload:null },
-{command:null, type:'value', name:'setpoint', payload:null },
-{command:null, type:'value', name:'internal', payload:null },
-{command:null, type:'value', name:'output', payload:null },
-{command:null, type:'value', name:'prop', payload:null },
-{command:null, type:'value', name:'inter', payload:null },
-{command:null, type:'value', name:'derv', payload:null },
-{command:null, type:'file', name:'temperatures.csv', payload:null }];
+var dataObject_list = [{command:'Get', type:'value', name:'temperature', payload:null },
+{command:'Get', type:'value', name:'setpoint', payload:null },
+{command:'Get', type:'value', name:'internal', payload:null },
+{command:'Get', type:'value', name:'output', payload:null },
+{command:'Get', type:'value', name:'prop', payload:null },
+{command:'Get', type:'value', name:'inter', payload:null },
+{command:'Get', type:'value', name:'derv', payload:null },
+{command:'Get', type:'file', name:'temperatures.csv', payload:null }];
 var request_list = [{type:'value', name:'temperature'},
 {type:'value', name:'setpoint'},
 {type:'value', name:'internal'},
@@ -265,13 +265,13 @@ function sendRequest() {
               break;
           }
         case 'Set':
-          switch (dataObject_list.type) {
+          switch (dataObject_list[request_itarator].type) {
             case 'value':
               conn.send({ command:'Set', type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
               console.log('Sent: Set ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + + dataObject_list[request_itarator].payload);
               dataObject_list[request_itarator].command = 'Get';
             default:
-             break;
+              break;
           }
         default:
           break;
@@ -289,7 +289,7 @@ function sendRequest() {
 function send_set_setpoint() {
   var _itarator = 0;
   while (_itarator < dataObject_list.length) {
-    if (dataObject_list[_itarator].name == 'setpoint'){
+    if (dataObject_list[_itarator].name == 'setpoint') {
       dataObject_list[_itarator].value = set_setpoint.value;
       dataObject_list[_itarator].command = 'Set';
       _itarator = dataObject_list.length;
