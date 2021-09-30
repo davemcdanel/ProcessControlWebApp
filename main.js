@@ -164,7 +164,7 @@ function join() {
     // Handle incoming data (messages only since this is the signal sender)
     conn.on('data', function (dataObject) {
         //addMessage("<span class=\"peerMsg\">Peer:</span> " + data);
-        console.log("Recieved: " + dataObject);
+        //console.log("Recieved: " + dataObject);
         console.log('Recvd: ' + dataObject.command + ' ' + dataObject.type + ' ' + dataObject.name + ' ' + dataObject.payload);
         switch (dataObject.command) {
           case 'Get':
@@ -261,8 +261,8 @@ function sendRequest() {
         case 'Get':
           switch (dataObject_list[request_itarator].type) {
             case 'value':
-              conn.send({ command:'Get', type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:null });
-              console.log('Sent: Get ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name);
+              conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:null });
+              console.log('Sent: ' + dataObject_list[request_itarator].command + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name);
               break;
             default:
               break;
@@ -270,9 +270,9 @@ function sendRequest() {
         case 'Set':
           switch (dataObject_list[request_itarator].type) {
             case 'value':
-              conn.send({ command:'Set', type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
-              console.log('Sent: Set ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + + dataObject_list[request_itarator].payload);
-              dataObject_list[request_itarator].command = 'Get';
+              conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
+              console.log('Sent: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
+              //dataObject_list[request_itarator].command = 'Get';
               break;
             default:
               break;
