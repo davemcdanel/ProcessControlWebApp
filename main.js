@@ -1,5 +1,5 @@
 //Version
-version = '0.2.5';
+version = '0.2.6';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 // DOM Elements
 title = document.getElementById("title");
@@ -13,7 +13,7 @@ recvIdInput = document.getElementById("receiver-id");
 set_setpoint = document.getElementById("set_setpoint");
 connectButton = document.getElementById("connect-button");
 
-var request_string; 
+var request_string;
 var peer = null; // own peer object
 var conn = null;
 var lastPeerId = null;
@@ -254,7 +254,7 @@ function sendRequest() {
 // Send the new setpoint
 function send_set_setpoint() {
   conn.send({ command:'Set', type:'value', name:'setpoint', payload:set_setpoint.value });
-  console.log('Sent: Set ' + 'setpoint' + ' ' + set_setpoint.value);
+  console.log('Sent: Set ' + 'value ' + 'setpoint ' + set_setpoint.value);
 }
 
 // Send the new proportional
