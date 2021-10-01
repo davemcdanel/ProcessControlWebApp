@@ -272,7 +272,7 @@ function sendRequest() {
             case 'value':
               conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
               console.log('Sent: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
-              //dataObject_list[request_itarator].command = 'Get';
+              dataObject_list[request_itarator].command = 'Get';
               break;
             default:
           }
