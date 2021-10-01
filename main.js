@@ -1,5 +1,5 @@
 //Version
-version = '0.2.9';
+version = '0.2.10';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 // DOM Elements
 title = document.getElementById("title");
@@ -261,12 +261,13 @@ function sendRequest() {
         case 'Get':
           switch (dataObject_list[request_itarator].type) {
             case 'value':
-              conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:null });
-              console.log('Sent: ' + dataObject_list[request_itarator].command + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name);
+              conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, dataObject_list[request_itarator].payload});
+              console.log('Sent: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
               break;
             default:
               break;
           }
+          break;
         case 'Set':
           switch (dataObject_list[request_itarator].type) {
             case 'value':
@@ -277,13 +278,14 @@ function sendRequest() {
             default:
               break;
           }
+          break;
         default:
           break;
       }
-    }
-    request_itarator++;
-    if (request_itarator >= request_list.length){
-      request_itarator = 0;
+      request_itarator++;
+      if (request_itarator >= request_list.length){
+        request_itarator = 0;
+      }
     }
   }
   setTimeout(sendRequest, 250);
