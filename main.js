@@ -265,7 +265,6 @@ function sendRequest() {
               console.log('Sent: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
               break;
             default:
-              break;
           }
           break;
         case 'Set':
@@ -276,11 +275,9 @@ function sendRequest() {
               //dataObject_list[request_itarator].command = 'Get';
               break;
             default:
-              break;
           }
           break;
         default:
-          break;
       }
       request_itarator++;
       if (request_itarator >= request_list.length){
