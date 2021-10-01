@@ -1,5 +1,5 @@
 //Version
-version = '0.2.10';
+version = '0.2.11';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 // DOM Elements
 title = document.getElementById("title");
@@ -261,7 +261,7 @@ function sendRequest() {
         case 'Get':
           switch (dataObject_list[request_itarator].type) {
             case 'value':
-              conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, dataObject_list[request_itarator].payload});
+              conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
               console.log('Sent: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
               break;
             default:
