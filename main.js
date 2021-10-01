@@ -293,7 +293,7 @@ function send_set_setpoint() {
   var _itarator = 0;
   while (_itarator < dataObject_list.length) {
     if (dataObject_list[_itarator].name == 'setpoint') {
-      dataObject_list[_itarator].value = set_setpoint.value;
+      dataObject_list[_itarator].payload = set_setpoint.value;
       dataObject_list[_itarator].command = 'Set';
       _itarator = dataObject_list.length;
     }
