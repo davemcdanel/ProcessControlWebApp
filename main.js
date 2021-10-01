@@ -1,5 +1,5 @@
 //Version
-version = '0.2.12';
+version = '0.2.13';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 // DOM Elements
 title = document.getElementById("title");
@@ -188,6 +188,7 @@ function join() {
                   default:
                     break;
                 }
+                break;
               case 'file':
                 switch (dataObject.name) {
                   case './temperatures.csv':
@@ -195,6 +196,7 @@ function join() {
                   default:
                     break;
                 }
+                break;
               default:
                 break;
             }
@@ -226,9 +228,11 @@ function join() {
                   default:
                     break;
                 }
+                break;
               default:
                break;
             }
+            break;
           default:
             break;
         }
