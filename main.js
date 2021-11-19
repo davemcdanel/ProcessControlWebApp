@@ -12,7 +12,7 @@ temperature = document.getElementById("temperature");
 recvIdInput = document.getElementById("receiver-id");
 set_setpoint = document.getElementById("set_setpoint");
 connectButton = document.getElementById("connect-button");
-dataChart = document.getElementById("myChart");
+
 
 var request_string;
 var peer = null; // own peer object
@@ -233,7 +233,7 @@ function join() {
                     dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
                     dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
                     dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
-                    break;                    
+                    break;
                   default:
                     break;
                 }
@@ -345,52 +345,53 @@ function startSW (){
 }
 
 $(document).ready(function(){
-
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-    type: 'bar',
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const myChart = new Chart(ctx, {
+    type: 'line',
     data: {
-        labels: ['Temp', 'Setpoint', 'Internal', 'Output'],
-        datasets: [{
-            label: '# of Votes',
-            //data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)'
-                //'rgba(153, 102, 255, 0.2)',
-                //'rgba(255, 159, 64, 0.2)'
-            ],
-            borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)'
-                //'rgba(153, 102, 255, 1)',
-                //'rgba(255, 159, 64, 1)'
-            ],
-            borderWidth: 1
-        }]
+      labels: ['Temp', 'Setpoint', 'Internal', 'Output'],
+      datasets: [{
+        label: '# of Votes',
+        //data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)'
+          //'rgba(153, 102, 255, 0.2)',
+          //'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)'
+            //'rgba(153, 102, 255, 1)',
+            //'rgba(255, 159, 64, 1)'
+        ],
+        borderWidth: 1
+      }]
     },
     options: {
-        scales: {
-            y: {
-                beginAtZero: true
-            }
+      scales: {
+        y: {
+          beginAtZero: true
         }
+      }
     }
-});
+  });
 
-connectButton.addEventListener('click', join);
-set_setpoint.addEventListener('blur',send_set_setpoint);
-set_prop.addEventListener('blur',send_set_prop);
-set_inter.addEventListener('blur',send_set_inter);
-set_derv.addEventListener('blur',send_set_derv);
+  connectButton.addEventListener('click', join);
+  set_setpoint.addEventListener('blur',send_set_setpoint);
+  set_prop.addEventListener('blur',send_set_prop);
+  set_inter.addEventListener('blur',send_set_inter);
+  set_derv.addEventListener('blur',send_set_derv);
 
-startSW();
-initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
-sendRequest();
-initializeGraph();
+  var dataChart = $("#myChart");
+
+  startSW();
+  initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
+  sendRequest();
+  initializeGraph();
 
 });
