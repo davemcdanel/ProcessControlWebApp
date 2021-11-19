@@ -12,6 +12,7 @@ temperature = document.getElementById("temperature");
 recvIdInput = document.getElementById("receiver-id");
 set_setpoint = document.getElementById("set_setpoint");
 connectButton = document.getElementById("connect-button");
+dataChart = document.getElementById("myChart");
 
 var request_string;
 var peer = null; // own peer object
@@ -26,7 +27,8 @@ var dataObject_list = [{command:'Get', type:'value', name:'temperature', payload
 {command:'Get', type:'value', name:'prop', payload:null },
 {command:'Get', type:'value', name:'inter', payload:null },
 {command:'Get', type:'value', name:'derv', payload:null },
-{command:'Get', type:'file', name:'temperatures.csv', payload:null }];
+{command:'Get', type:'file', name:'temperatures.csv', payload:null },
+{command:'Get', type:'value', name:'dataPoint', payload:null}];
 var request_list = [{type:'value', name:'temperature'},
 {type:'value', name:'setpoint'},
 {type:'value', name:'internal'},
@@ -34,7 +36,8 @@ var request_list = [{type:'value', name:'temperature'},
 {type:'value', name:'prop'},
 {type:'value', name:'inter'},
 {type:'value', name:'derv'},
-{type:'file', name:'temperatures.csv'}];
+{type:'file', name:'temperatures.csv'},
+{type:'value', name:'dataPoint'}];
 // command: get or set.
 // type: value, file.
 // name: Name of the object.
@@ -62,9 +65,9 @@ $("#refreshgraph").click(function() {
 });
 
 // init the graph
-function initializeGraph(){
-    g2 = new Dygraph(graphdiv2,"./temperatures.csv",{colors: ["red","blue","orange","green"]});
-}
+//function initializeGraph(){
+//    g2 = new Dygraph(graphdiv2,"./temperatures.csv",{colors: ["red","blue","orange","green"]});
+//}
 
 /* Get first "GET style" parameter from href.
  * This enables delivering an initial command upon page load.
@@ -226,7 +229,11 @@ function join() {
                     set_derv.value = dataObject.payload;
                     break;
                   case 'dataPoint':
-
+                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
+                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
+                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
+                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
+                    break;                    
                   default:
                     break;
                 }
@@ -343,25 +350,25 @@ const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['Temp', 'Setpoint', 'Internal', 'Output'],
         datasets: [{
             label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
+            //data: [12, 19, 3, 5, 2, 3],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
                 'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-                'rgba(153, 102, 255, 0.2)',
-                'rgba(255, 159, 64, 0.2)'
+                'rgba(75, 192, 192, 0.2)'
+                //'rgba(153, 102, 255, 0.2)',
+                //'rgba(255, 159, 64, 0.2)'
             ],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
                 'rgba(54, 162, 235, 1)',
                 'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-                'rgba(153, 102, 255, 1)',
-                'rgba(255, 159, 64, 1)'
+                'rgba(75, 192, 192, 1)'
+                //'rgba(153, 102, 255, 1)',
+                //'rgba(255, 159, 64, 1)'
             ],
             borderWidth: 1
         }]
