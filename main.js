@@ -12,6 +12,7 @@ temperature = document.getElementById("temperature");
 recvIdInput = document.getElementById("receiver-id");
 set_setpoint = document.getElementById("set_setpoint");
 connectButton = document.getElementById("connect-button");
+var dataChart = $("#myChart");
 
 
 var request_string;
@@ -229,10 +230,10 @@ function join() {
                     set_derv.value = dataObject.payload;
                     break;
                   case 'dataPoint':
-                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
-                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
-                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
-                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
+                    myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
+                    myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
+                    myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
+                    myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
                     break;
                   default:
                     break;
@@ -386,8 +387,6 @@ $(document).ready(function(){
   set_prop.addEventListener('blur',send_set_prop);
   set_inter.addEventListener('blur',send_set_inter);
   set_derv.addEventListener('blur',send_set_derv);
-
-  var dataChart = $("#myChart");
 
   startSW();
   initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
