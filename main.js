@@ -1,50 +1,49 @@
-//Version
-version = '0.2.14';
-title.innerHTML = 'Dave\'s Red Smoker ' + version;
-// DOM Elements
-title = document.getElementById("title");
-output = document.getElementById("output");
-status = document.getElementById("status");
-setpoint = document.getElementById("setpoint");
-internal = document.getElementById("internal");
-graphdiv2 = document.getElementById("graphdiv2");
-temperature = document.getElementById("temperature");
-recvIdInput = document.getElementById("receiver-id");
-set_setpoint = document.getElementById("set_setpoint");
-connectButton = document.getElementById("connect-button");
-var dataChart = $("#myChart");
-
-
-var request_string;
-var peer = null; // own peer object
-var conn = null;
-var lastPeerId = null;
-var temperatures = null;
-var request_itarator = 0;
-var dataObject_list = [{command:'Get', type:'value', name:'temperature', payload:null },
-{command:'Get', type:'value', name:'setpoint', payload:null },
-{command:'Get', type:'value', name:'internal', payload:null },
-{command:'Get', type:'value', name:'output', payload:null },
-{command:'Get', type:'value', name:'prop', payload:null },
-{command:'Get', type:'value', name:'inter', payload:null },
-{command:'Get', type:'value', name:'derv', payload:null },
-{command:'Get', type:'file', name:'temperatures.csv', payload:null },
-{command:'Get', type:'value', name:'dataPoint', payload:null}];
-var request_list = [{type:'value', name:'temperature'},
-{type:'value', name:'setpoint'},
-{type:'value', name:'internal'},
-{type:'value', name:'output'},
-{type:'value', name:'prop'},
-{type:'value', name:'inter'},
-{type:'value', name:'derv'},
-{type:'file', name:'temperatures.csv'},
-{type:'value', name:'dataPoint'}];
-// command: get or set.
-// type: value, file.
-// name: Name of the object.
-// payload: value or data
-let dataObject = { command:null, type:null, name:null, payload:null };
-
+window.onload = function(){
+  //Version
+  version = '0.2.14';
+  title.innerHTML = 'Dave\'s Red Smoker ' + version;
+  // DOM Elements
+  title = document.getElementById("title");
+  output = document.getElementById("output");
+  status = document.getElementById("status");
+  setpoint = document.getElementById("setpoint");
+  internal = document.getElementById("internal");
+  graphdiv2 = document.getElementById("graphdiv2");
+  temperature = document.getElementById("temperature");
+  recvIdInput = document.getElementById("receiver-id");
+  set_setpoint = document.getElementById("set_setpoint");
+  connectButton = document.getElementById("connect-button");
+  var dataChart = $("#myChart");
+  var request_string;
+  var peer = null; // own peer object
+  var conn = null;
+  var lastPeerId = null;
+  var temperatures = null;
+  var request_itarator = 0;
+  var dataObject_list = [{command:'Get', type:'value', name:'temperature', payload:null },
+  {command:'Get', type:'value', name:'setpoint', payload:null },
+  {command:'Get', type:'value', name:'internal', payload:null },
+  {command:'Get', type:'value', name:'output', payload:null },
+  {command:'Get', type:'value', name:'prop', payload:null },
+  {command:'Get', type:'value', name:'inter', payload:null },
+  {command:'Get', type:'value', name:'derv', payload:null },
+  {command:'Get', type:'file', name:'temperatures.csv', payload:null },
+  {command:'Get', type:'value', name:'dataPoint', payload:null}];
+  var request_list = [{type:'value', name:'temperature'},
+  {type:'value', name:'setpoint'},
+  {type:'value', name:'internal'},
+  {type:'value', name:'output'},
+  {type:'value', name:'prop'},
+  {type:'value', name:'inter'},
+  {type:'value', name:'derv'},
+  {type:'file', name:'temperatures.csv'},
+  {type:'value', name:'dataPoint'}];
+  // command: get or set.
+  // type: value, file.
+  // name: Name of the object.
+  // payload: value or data
+  let dataObject = { command:null, type:null, name:null, payload:null };
+}
 
 jQuery.ajaxSetup({
   // Disable caching of AJAX responses
@@ -230,6 +229,7 @@ function join() {
                     set_derv.value = dataObject.payload;
                     break;
                   case 'dataPoint':
+                    console.log("dataPoint: " + dataObject.payload.text());
                     dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
                     dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
                     dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
@@ -353,7 +353,7 @@ $(document).ready(function(){
       labels: ['Temp', 'Setpoint', 'Internal', 'Output'],
       datasets: [{
         label: 'Cook Data',
-        //data: [12, 19, 3, 5, 2, 3],
+        data: 0,
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
