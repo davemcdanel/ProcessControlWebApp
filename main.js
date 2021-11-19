@@ -230,10 +230,10 @@ function join() {
                     set_derv.value = dataObject.payload;
                     break;
                   case 'dataPoint':
-                    myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
-                    myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
-                    myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
-                    myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
+                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
+                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
+                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
+                    dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
                     break;
                   default:
                     break;
