@@ -1,5 +1,5 @@
 //Version
-version = '0.2.13';
+version = '0.2.14';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 // DOM Elements
 title = document.getElementById("title");
