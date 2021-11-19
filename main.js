@@ -1,4 +1,3 @@
-window.onload = function(){
   //Version
   version = '0.2.14';
   title.innerHTML = 'Dave\'s Red Smoker ' + version;
@@ -43,7 +42,7 @@ window.onload = function(){
   // name: Name of the object.
   // payload: value or data
   let dataObject = { command:null, type:null, name:null, payload:null };
-}
+
 
 jQuery.ajaxSetup({
   // Disable caching of AJAX responses
