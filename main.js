@@ -229,10 +229,10 @@ function join() {
                     break;
                   case 'dataPoint':
                     if (dataObject.payload){
-                      dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
-                      dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
-                      dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
-                      dataChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
+                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
+                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
+                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
+                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
                     }
                     break;
                   default:
