@@ -348,10 +348,9 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ['Temp', 'Setpoint', 'Internal', 'Output'],
     datasets: [{
-      label: 'Cook Data',
-      data: 0,
+      label: ['Temp','Setpoint','Internal','Output'],
+      data: [0,0,0,0],
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
