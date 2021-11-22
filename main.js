@@ -229,8 +229,8 @@ function join() {
                     break;
                   case 'dataPoint':
                     if (dataObject.payload){
-                      myChart.data.labels.push(data['Time']);
-                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp']),dataset.data.push(data['Setpoint']),dataset.data.push(data['Internal']),dataset.data.push(data['Output'])});
+                      myChart.data.labels.push(dataObject.payload['Time']);
+                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(dataObject.payload['Temp']),dataset.data.push(dataObject.payload['Setpoint']),dataset.data.push(dataObject.payload['Internal']),dataset.data.push(dataObject.payload['Output'])});
                       myChart.update();
                     }
                     break;
