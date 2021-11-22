@@ -229,14 +229,9 @@ function join() {
                     break;
                   case 'dataPoint':
                     if (dataObject.payload){
-                      myChart.data.labels.push(new Date());
-                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp'])});
-                      myChart.data.labels.push(new Date());
-                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Setpoint'])});
-                      myChart.data.labels.push(new Date());
-                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Internal'])});
-                      myChart.data.labels.push(new Date());
-                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Output'])});
+                      myChart.data.labels.push(data['Time']);
+                      myChart.data.datasets.forEach((dataset) => {dataset.data.push(data['Temp']),dataset.data.push(data['Setpoint']),dataset.data.push(data['Internal']),dataset.data.push(data['Output'])});
+                      myChart.update();
                     }
                     break;
                   default:
@@ -394,4 +389,4 @@ set_derv.addEventListener('blur',send_set_derv);
 startSW();
 initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
 sendRequest();
-initializeGraph();
+//initializeGraph();
