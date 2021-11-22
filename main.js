@@ -230,10 +230,10 @@ function join() {
                   case 'dataPoint':
                     if (dataObject.payload){
                       myChart.data.labels.push(dataObject.payload['Time']);
-                      myChart.data.datasets.forEach((dataset) => [{dataset.data.push(dataObject.payload['Temp'])},
-                                                                  {dataset.data.push(dataObject.payload['Setpoint'])},
-                                                                  {dataset.data.push(dataObject.payload['Internal'])},
-                                                                  {dataset.data.push(dataObject.payload['Output'])}]);
+                      myChart.data.datasets.forEach((dataset) => [{'Temp':dataset.data.push(dataObject.payload['Temp'])},
+                                                                  {'Setpoint':dataset.data.push(dataObject.payload['Setpoint'])},
+                                                                  {'Internal':dataset.data.push(dataObject.payload['Internal'])},
+                                                                  {'Output':dataset.data.push(dataObject.payload['Output'])}]);
                       myChart.update();
                     }
                     break;
