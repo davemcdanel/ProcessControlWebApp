@@ -387,8 +387,8 @@ var myChart = new Chart(ctx, {
     },{
       label:'Output',
       data:0,
-      backgroundColor:'rgba(75, 192, 192, 0.2)',
-      borderColor:'rgba(75, 192, 192, 1)',
+      backgroundColor:'rgba(10, 150, 0, 0.2)',
+      borderColor:'rgba(10, 150, 0, 1)',
       borderWidth:1,
       fill: false,
       interaction: {
