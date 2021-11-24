@@ -13,6 +13,7 @@
   set_setpoint = document.getElementById("set_setpoint");
   connectButton = document.getElementById("connect-button");
   var dataChart = $("#myChart");
+  var graphUpdateTime = 1000;
   var request_string;
   var peer = null; // own peer object
   var conn = null;
@@ -234,6 +235,7 @@ function join() {
                       myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
                       myChart.data.datasets[2].data.push(dataObject.payload['Internal']);
                       myChart.data.datasets[3].data.push(dataObject.payload['Output']);
+                      graphUpdateTime = dataObject.payload['GraphUpdate']
                       myChart.update();
                     }
                     break;
@@ -302,7 +304,7 @@ function sendRequest() {
       }
     }
   }
-  setTimeout(sendRequest, 250);
+  setTimeout(sendRequest, ((graphUpdateTime*1000)/request_list.length));
 }
 
 // Send the new setpoint
