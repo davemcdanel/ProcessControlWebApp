@@ -172,7 +172,11 @@
 				<div id="address" style="width:95%; height:20%;">
 						<span id="add">IP:</span>
 						<script>
-							$('#add').load('/cgi-bin/controller','get IP');
+							$('#add').load('/cgi-bin/controller','get IP', function( response, status, xhr ) {
+                if ( status == "error" ) {
+                    var msg = "Sorry but there was an error: ";
+                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                  });
 							setInterval(function(){
 								$('#add').load('/cgi-bin/controller','get IP');
 							}, 5075);
