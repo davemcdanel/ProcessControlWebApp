@@ -175,7 +175,7 @@
 							$('#add').load('/cgi-bin/controller','get IP', function( response, status, xhr ) {
                 if ( status == "error" ) {
                     var msg = "Sorry but there was an error: ";
-                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );}
                   });
 							setInterval(function(){
 								$('#add').load('/cgi-bin/controller','get IP');
