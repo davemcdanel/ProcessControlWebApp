@@ -3,7 +3,7 @@
 	"name": "Smoker UI",
 	"lang": "en",
 	"description": "Universal Smoker Control",
-	"start_url": "../",
+	"start_url": "./",
 	"scope": ".",
 	"background_color": "#121313",
 	"theme_color": "#202223",
