@@ -441,3 +441,4 @@ startSW();
 initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
 sendRequest();
 //initializeGraph();
+getRecvIdInput();
