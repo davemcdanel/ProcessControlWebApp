@@ -9,7 +9,7 @@
   internal = document.getElementById("internal");
   graphdiv2 = document.getElementById("graphdiv2");
   temperature = document.getElementById("temperature");
-  recvIdInput = document.getElementById("receiver-id");
+  recvIdInput = document.getElementById("recvIdInput");
   set_setpoint = document.getElementById("set_setpoint");
   connectButton = document.getElementById("connect-button");
   var dataChart = $("#myChart");
