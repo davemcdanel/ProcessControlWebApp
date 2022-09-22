@@ -1,6 +1,6 @@
 {
-	"short_name": "Smoker",
-	"name": "Smoker UI",
+	"short_name": "Smoker Dev",
+	"name": "Smoker Dev UI",
 	"lang": "en",
 	"description": "Universal Smoker Control",
 	"start_url": "./",
