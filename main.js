@@ -1,6 +1,3 @@
-  //Version
-  version = '0.2.14';
-  title.innerHTML = 'Dave\'s Red Smoker ' + version;
   // DOM Elements
   title = document.getElementById("title");
   output = document.getElementById("output");
@@ -12,6 +9,10 @@
   recvIdInput = document.getElementById("recvIdInput");
   set_setpoint = document.getElementById("set_setpoint");
   connectButton = document.getElementById("connect-button");
+  //Version
+  version = '0.2.15';
+  title.innerHTML = 'Dave\'s Red Smoker ' + version;
+  //  
   var dataChart = $("#myChart");
   var graphUpdateTime = 1000;
   var request_string;
