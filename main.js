@@ -408,6 +408,29 @@ var myChart = new Chart(ctx, {
   }
 });
 
+function getRecvIdInput() {
+  if (localStorage.getItem('recvIdInput') === null) {
+    recvIdInput.textContent = '[Enter Smoker ID';
+  }else {
+    recvIdInput.textContent = localStorage.getItem('recvIdInput');
+  }
+}
+
+function setRecvIdInput(e) {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed
+    if (e.which == 13 || e.keyCode == 13) {
+      localStorage.setItem('recvIdInput', e.target.innerText);
+      recvIdInput.blur();
+    }
+  }else {
+    localStorage.setItem('recvIdInput', e.target.innerText);
+  }
+}
+
+recvIdInput.addEventListener('keypress', setRecvIdInput);
+recvIdInput.addEventListener('blur', setRecvIdInput);
+
 connectButton.addEventListener('click', join);
 set_setpoint.addEventListener('blur',send_set_setpoint);
 set_prop.addEventListener('blur',send_set_prop);
