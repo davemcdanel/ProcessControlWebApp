@@ -414,6 +414,7 @@ function getRecvIdInput() {
     recvIdInput.textContent = '[Enter Smoker ID';
   }else {
     recvIdInput.textContent = localStorage.getItem('recvIdInput');
+    join();
   }
 }
 
@@ -423,6 +424,7 @@ function setRecvIdInput(e) {
     if (e.which == 13 || e.keyCode == 13) {
       localStorage.setItem('recvIdInput', e.target.innerText);
       recvIdInput.blur();
+      join();
     }
   }else {
     localStorage.setItem('recvIdInput', e.target.innerText);
@@ -432,7 +434,7 @@ function setRecvIdInput(e) {
 recvIdInput.addEventListener('keypress', setRecvIdInput);
 recvIdInput.addEventListener('blur', setRecvIdInput);
 
-connectButton.addEventListener('click', join);
+//connectButton.addEventListener('click', join);
 set_setpoint.addEventListener('blur',send_set_setpoint);
 set_prop.addEventListener('blur',send_set_prop);
 set_inter.addEventListener('blur',send_set_inter);
