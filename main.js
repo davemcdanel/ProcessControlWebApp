@@ -151,7 +151,7 @@ function join() {
     console.log('Try to Connect...');
 
     // Create connection to destination peer specified in the input field
-    conn = peer.connect(recvIdInput.textContent, {
+    conn = peer.connect(recvIdInput.value, {
         reliable: true
     });
 
@@ -411,9 +411,10 @@ var myChart = new Chart(ctx, {
 
 function getRecvIdInput() {
   if (localStorage.getItem('recvIdInput') === null) {
-    recvIdInput.textContent = '[Enter Smoker ID';
+    recvIdInput.textContent = 'Enter Smoker ID';
   }else {
     recvIdInput.textContent = localStorage.getItem('recvIdInput');
+    recvIdInput.value = localStorage.getItem('recvIdInput');
   }
 }
 
@@ -441,6 +442,6 @@ set_derv.addEventListener('blur',send_set_derv);
 
 startSW();
 initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
-sendRequest();
 //initializeGraph();
 getRecvIdInput();
+sendRequest();
