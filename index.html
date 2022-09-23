@@ -25,8 +25,43 @@
 		<h3>
 			<span>ID:</span>
 			<span id="recvIdInput" contenteditable="true">SMOKER ID</span>
-			<span id="status">Status:Enter Smoker ID</span>
 		</h3>
+		<h4>
+			<span id="status">Status:Enter Smoker ID</span>
+		</h4>
+			
+		<canvas id="myChart"></canvas>
+
+		<div id="stats" style="width:95%;height:20%;">
+			<h1>
+				<span>Temp:
+					<font color="red">
+						<span id="temperature"></span>
+					</font>
+				</span>
+				<span>
+					&emsp; SP:
+					<font color="blue">
+						<span id="setpoint"></span>
+					</font>
+				</span>
+				<span>
+					&emsp; INT:
+					<font color="orange">
+						<span id="internal"></span>
+					</font>
+				</span>
+				<span>
+					&emsp; OP:
+					<font color="green">
+						<span id="output"></span>
+					</font>
+				</span>
+				<span>
+					<a id="refreshgraph" data-role="button">Refresh Graph</a>
+				</span>
+			</h1>
+		</div>
 
 		<script src="./jquery/1.7.2/jquery.min.js"></script>
 		<script src="./jquery.mobile/1.2.1/jquery.mobile-1.2.1.min.js"></script>
