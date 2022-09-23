@@ -148,10 +148,10 @@ function join() {
         conn.close();
     }
 
-    console.log('Clicked - Connect');
+    console.log('Try to Connect...');
 
     // Create connection to destination peer specified in the input field
-    conn = peer.connect(recvIdInput.value, {
+    conn = peer.connect(recvIdInput.textContent, {
         reliable: true
     });
 
@@ -414,7 +414,6 @@ function getRecvIdInput() {
     recvIdInput.textContent = '[Enter Smoker ID';
   }else {
     recvIdInput.textContent = localStorage.getItem('recvIdInput');
-    join();
   }
 }
 
