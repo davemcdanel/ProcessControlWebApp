@@ -57,6 +57,7 @@ $("#resetdata").click(function() {
     initializeGraph();
 });
 
+/*
 $("#refreshgraph").click(function() {
   $.mobile.loading( 'show', { theme: "b", text: "Loading......", textonly: true });
   ///g2.destroy();
@@ -64,6 +65,7 @@ $("#refreshgraph").click(function() {
   g2.annotations();
   $.mobile.loading( 'hide' );
 });
+*/
 
 // init the graph
 //function initializeGraph(){
