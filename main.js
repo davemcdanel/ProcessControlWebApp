@@ -10,7 +10,7 @@ recvIdInput = document.getElementById("recvIdInput");
 set_setpoint = document.getElementById("set_setpoint");
 connectButton = document.getElementById("connect-button");
 //Version
-version = '0.2.15';
+version = '0.2.16';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 //  
 var dataChart = $("#myChart");
