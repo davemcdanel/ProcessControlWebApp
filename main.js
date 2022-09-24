@@ -1,27 +1,27 @@
-  // DOM Elements
-  title = document.getElementById("title");
-  output = document.getElementById("output");
-  status = document.getElementById("status");
-  setpoint = document.getElementById("setpoint");
-  internal = document.getElementById("internal");
-  graphdiv2 = document.getElementById("graphdiv2");
-  temperature = document.getElementById("temperature");
-  recvIdInput = document.getElementById("recvIdInput");
-  set_setpoint = document.getElementById("set_setpoint");
-  connectButton = document.getElementById("connect-button");
-  //Version
-  version = '0.2.15';
-  title.innerHTML = 'Dave\'s Red Smoker ' + version;
-  //  
-  var dataChart = $("#myChart");
-  var graphUpdateTime = 1000;
-  var request_string;
-  var peer = null; // own peer object
-  var conn = null;
-  var lastPeerId = null;
-  var temperatures = null;
-  var request_itarator = 0;
-  var dataObject_list = [{command:'Get', type:'value', name:'temperature', payload:null },
+// DOM Elements
+title = document.getElementById("title");
+output = document.getElementById("output");
+status = document.getElementById("status");
+setpoint = document.getElementById("setpoint");
+internal = document.getElementById("internal");
+graphdiv2 = document.getElementById("graphdiv2");
+temperature = document.getElementById("temperature");
+recvIdInput = document.getElementById("recvIdInput");
+set_setpoint = document.getElementById("set_setpoint");
+connectButton = document.getElementById("connect-button");
+//Version
+version = '0.2.15';
+title.innerHTML = 'Dave\'s Red Smoker ' + version;
+//  
+var dataChart = $("#myChart");
+var graphUpdateTime = 1000;
+var request_string;
+var peer = null; // own peer object
+var conn = null;
+var lastPeerId = null;
+var temperatures = null;
+var request_itarator = 0;
+var dataObject_list = [{command:'Get', type:'value', name:'temperature', payload:null },
   {command:'Get', type:'value', name:'setpoint', payload:null },
   {command:'Get', type:'value', name:'internal', payload:null },
   {command:'Get', type:'value', name:'output', payload:null },
@@ -30,7 +30,7 @@
   {command:'Get', type:'value', name:'derv', payload:null },
   {command:'Get', type:'file', name:'temperatures.csv', payload:null },
   {command:'Get', type:'value', name:'dataPoint', payload:null}];
-  var request_list = [{type:'value', name:'temperature'},
+var request_list = [{type:'value', name:'temperature'},
   {type:'value', name:'setpoint'},
   {type:'value', name:'internal'},
   {type:'value', name:'output'},
@@ -43,8 +43,7 @@
   // type: value, file.
   // name: Name of the object.
   // payload: value or data
-  let dataObject = { command:null, type:null, name:null, payload:null };
-
+let dataObject = { command:null, type:null, name:null, payload:null };
 
 jQuery.ajaxSetup({
   // Disable caching of AJAX responses
@@ -52,9 +51,9 @@ jQuery.ajaxSetup({
 });
 
 $("#resetdata").click(function() {
-    $.get("/cgi-bin/controller", "set resetdata," + "true");
-    g2.destroy();
-    initializeGraph();
+  $.get("/cgi-bin/controller", "set resetdata," + "true");
+  g2.destroy();
+  initializeGraph();
 });
 
 /*
@@ -80,14 +79,14 @@ $("#refreshgraph").click(function() {
  *DLM "Really, I have no idea what this is for. It was in the example code, so I kept it."
  */
 function getUrlParam(name) {
-    name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-    var regexS = "[\\?&]" + name + "=([^&#]*)";
-    var regex = new RegExp(regexS);
-    var results = regex.exec(window.location.href);
-    if (results == null)
-        return null;
-    else
-        return results[1];
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  var regexS = "[\\?&]" + name + "=([^&#]*)";
+  var regex = new RegExp(regexS);
+  var results = regex.exec(window.location.href);
+  if (results == null)
+    return null;
+  else
+    return results[1];
 }
 
 /* Create the Peer object for our end of the connection.
@@ -96,47 +95,47 @@ function getUrlParam(name) {
  * peer object.
  */
 function initializePeerJS() {
-    // Create own peer object with connection to shared PeerJS server
-    peer = new Peer(null,{debug:2});
-    peer.on('open', function (id) {
-        // Workaround for peer.reconnect deleting previous id
-        if (peer.id === null) {
-            status.innerHTML = "Status: " + "Received null id from peer open.";
-            console.log('Received null id from peer open');
-            peer.id = lastPeerId;
-        } else {
-            lastPeerId = peer.id;
-        }
-        console.log('ID: ' + peer.id);
-    });
+  // Create own peer object with connection to shared PeerJS server
+  peer = new Peer(null,{debug:2});
+  peer.on('open', function (id) {
+    // Workaround for peer.reconnect deleting previous id
+    if (peer.id === null) {
+      status.innerHTML = "Status: " + "Received null id from peer open.";
+      console.log('Received null id from peer open');
+      peer.id = lastPeerId;
+    } else {
+      lastPeerId = peer.id;
+    }
+      console.log('ID: ' + peer.id);
+  });
 
-    peer.on('connection', function (c) {
-        // Disallow incoming connections
-        c.on('open', function() {
-            c.send("Sender does not accept incoming connections");
-            setTimeout(function() { c.close(); }, 500);
-        });
+  peer.on('connection', function (c) {
+    // Disallow incoming connections
+    c.on('open', function() {
+      c.send("Sender does not accept incoming connections");
+      setTimeout(function() { c.close(); }, 500);
     });
+  });
 
-    peer.on('disconnected', function () {
-        status.innerHTML = "Status: " + "Connection lost. Please reconnect.";
-        console.log('Connection lost. Please reconnect');
-        // Workaround for peer.reconnect deleting previous id
-        peer.id = lastPeerId;
-        peer._lastServerId = lastPeerId;
-        peer.reconnect();
-    });
+  peer.on('disconnected', function () {
+    status.innerHTML = "Status: " + "Connection lost. Please reconnect.";
+    console.log('Connection lost. Please reconnect');
+    // Workaround for peer.reconnect deleting previous id
+    peer.id = lastPeerId;
+    peer._lastServerId = lastPeerId;
+    peer.reconnect();
+  });
 
-    peer.on('close', function() {
-        conn = null;
-        status.innerHTML = "Status: " + "Connection destroyed. Please refresh.";
-        console.log('Connection destroyed');
-    });
+  peer.on('close', function() {
+    conn = null;
+    status.innerHTML = "Status: " + "Connection destroyed. Please refresh.";
+    console.log('Connection destroyed');
+  });
 
-    peer.on('error', function (err) {
-        console.log(err);
-        alert('' + err);
-    });
+  peer.on('error', function (err) {
+    console.log(err);
+    alert('' + err);
+  });
 }
 
 /** Create the connection between the two Peers.
@@ -145,118 +144,118 @@ function initializePeerJS() {
  * connection and data received on it.
  */
 function join() {
-    // Close old connection
-    if (conn) {
-        conn.close();
-    }
+  // Close old connection
+  if (conn) {
+    conn.close();
+  }
 
-    console.log('Try to Connect...');
+  console.log('Try to Connect...');
 
-    // Create connection to destination peer specified in the input field
-    conn = peer.connect(recvIdInput.value, {
-        reliable: true
-    });
+  // Create connection to destination peer specified in the input field
+  conn = peer.connect(recvIdInput.value, {
+    reliable: true
+  });
 
-    conn.on('open', function () {
-        status.innerHTML = "Status: " + "Connected to - " + conn.peer;
-        console.log("Connected to: " + conn.peer);
+  conn.on('open', function () {
+    status.innerHTML = "Status: " + "Connected to - " + conn.peer;
+    console.log("Connected to: " + conn.peer);
 
-        // Check URL params for comamnds that should be sent immediately
-        var command = getUrlParam("command");
-        if (command)
-            conn.send(command);
-    });
+    // Check URL params for comamnds that should be sent immediately
+    var command = getUrlParam("command");
+    if (command)
+      conn.send(command);
+  });
 
-    // Handle incoming data (messages only since this is the signal sender)
-    conn.on('data', function (dataObject) {
-        //addMessage("<span class=\"peerMsg\">Peer:</span> " + data);
-        //console.log("Recieved: " + dataObject);
-        console.log('Recvd: ' + dataObject.command + ' ' + dataObject.type + ' ' + dataObject.name + ' ' + dataObject.payload);
-        switch (dataObject.command) {
-          case 'Get':
-            switch (dataObject.type){
-              case 'value':
-                switch (dataObject.name) {
-                  case 'temperature':
-                    break;
-                  case 'setpoint':
-                    break;
-                  case 'internal':
-                    break;
-                  case 'output':
-                    break;
-                  case 'prop':
-                    break;
-                  case 'inter':
-                    break;
-                  case 'derv':
-                    break;
-                  default:
-                    break;
-                }
+  // Handle incoming data (messages only since this is the signal sender)
+  conn.on('data', function (dataObject) {
+    //addMessage("<span class=\"peerMsg\">Peer:</span> " + data);
+    //console.log("Recieved: " + dataObject);
+    console.log('Recvd: ' + dataObject.command + ' ' + dataObject.type + ' ' + dataObject.name + ' ' + dataObject.payload);
+    switch (dataObject.command) {
+      case 'Get':
+        switch (dataObject.type){
+          case 'value':
+            switch (dataObject.name) {
+              case 'temperature':
                 break;
-              case 'file':
-                switch (dataObject.name) {
-                  case './temperatures.csv':
-                    break;
-                  default:
-                    break;
-                }
+              case 'setpoint':
+                break;
+              case 'internal':
+                break;
+              case 'output':
+                break;
+              case 'prop':
+                break;
+              case 'inter':
+                break;
+              case 'derv':
                 break;
               default:
                 break;
             }
-          case 'Set':
-            switch (dataObject.type){
-              case 'value':
-                switch (dataObject.name) {
-                  case 'temperature':
-                    temperature.innerHTML = dataObject.payload;
-                    break;
-                  case 'setpoint':
-                    setpoint.innerHTML = dataObject.payload;
-                    break;
-                  case 'internal':
-                    internal.innerHTML = dataObject.payload;
-                    break;
-                  case 'output':
-                    output.innerHTML = dataObject.payload;
-                    break;
-                  case 'prop':
-                    set_prop.value = dataObject.payload;
-                    break;
-                  case 'inter':
-                    set_inter.value = dataObject.payload;
-                    break;
-                  case 'derv':
-                    set_derv.value = dataObject.payload;
-                    break;
-                  case 'dataPoint':
-                    if (dataObject.payload){
-                      myChart.data.labels.push(dataObject.payload['Time']);
-                      myChart.data.datasets[0].data.push(dataObject.payload['Temp']);
-                      myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
-                      myChart.data.datasets[2].data.push(dataObject.payload['Internal']);
-                      myChart.data.datasets[3].data.push(dataObject.payload['Output']);
-                      graphUpdateTime = dataObject.payload['GraphUpdate']
-                      myChart.update();
-                    }
-                    break;
-                  default:
-                    break;
-                }
+            break;
+          case 'file':
+            switch (dataObject.name) {
+              case './temperatures.csv':
                 break;
               default:
-               break;
+                break;
             }
             break;
           default:
             break;
         }
-    });
-    conn.on('close', function () {
-        status.innerHTML = "Status: " + "Connection closed.";
-    });
+        case 'Set':
+          switch (dataObject.type){
+            case 'value':
+              switch (dataObject.name) {
+                case 'temperature':
+                  temperature.innerHTML = dataObject.payload;
+                  break;
+                case 'setpoint':
+                  setpoint.innerHTML = dataObject.payload;
+                  break;
+                case 'internal':
+                  internal.innerHTML = dataObject.payload;
+                  break;
+                case 'output':
+                  output.innerHTML = dataObject.payload;
+                  break;
+                case 'prop':
+                  set_prop.value = dataObject.payload;
+                  break;
+                case 'inter':
+                  set_inter.value = dataObject.payload;
+                  break;
+                case 'derv':
+                  set_derv.value = dataObject.payload;
+                  break;
+                case 'dataPoint':
+                  if (dataObject.payload){
+                    myChart.data.labels.push(dataObject.payload['Time']);
+                    myChart.data.datasets[0].data.push(dataObject.payload['Temp']);
+                    myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
+                    myChart.data.datasets[2].data.push(dataObject.payload['Internal']);
+                    myChart.data.datasets[3].data.push(dataObject.payload['Output']);
+                    graphUpdateTime = dataObject.payload['GraphUpdate']
+                    myChart.update();
+                  }
+                  break;
+                default:
+                  break;
+              }
+              break;
+            default:
+             break;
+          }
+          break;
+        default:
+          break;
+    }
+  });
+  conn.on('close', function () {
+    status.innerHTML = "Status: " + "Connection closed.";
+  });
 }
 
 // Request a new piece of data every 250 milliseconds.
