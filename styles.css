@@ -3,6 +3,11 @@ body {
     margin: 0;
 }
 
+h1 {
+    text-align: center;
+    margin-top: 0;
+}
+
 #heading {
     background-image: url('./images/main_background.png');
 	background-repeat: no-repeat;
@@ -10,7 +15,18 @@ body {
 	background-size: 100% 100%;
 }
 
-h1 {
-    text-align: center;
-    margin-top: 0;
+#temperature {
+    color:red
+}
+
+#setpoint {
+    color: blue
+}
+
+#orange {
+    color: orange
+}
+
+#output{
+    color: green
 }
