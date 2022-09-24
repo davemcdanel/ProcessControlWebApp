@@ -1,0 +1,11 @@
+#heading {
+    background-image: url('./images/main_background.png');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: 100% 100%;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 0;
+}
