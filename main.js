@@ -402,9 +402,31 @@ var myChart = new Chart(ctx, {
       radius: 0
     }]},
   options: {
-    scales: {
-      y: {
-        beginAtZero: true
+    legend: {
+      position: 'top',
+      labels: {
+        fontColor: 'white'
+      }
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Radar Chart',
+      fontColor: 'white'
+    },
+    scale: {
+      ticks: {
+        beginAtZero: true,
+        fontColor: 'white', // labels such as 10, 20, etc
+        showLabelBackdrop: false // hide square behind text
+      },
+      pointLabels: {
+        fontColor: 'white' // labels around the edge like 'Running'
+      },
+      gridLines: {
+        color: 'rgba(255, 255, 255, 0.2)'
+      },
+      angleLines: {
+        color: 'white' // lines radiating from the center
       }
     }
   }
