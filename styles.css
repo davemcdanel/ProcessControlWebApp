@@ -11,7 +11,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    height: 100vh;
+/*    height: 100vh; */
     color: white;
     background-color:black;
 }
@@ -22,6 +22,8 @@ h1 {
 }
 
 #heading {
+    height: 300px;
+    overflow: scroll;
     font-size: large;
     /*background-image: url('./images/main_background.png');
 	background-repeat: no-repeat;
