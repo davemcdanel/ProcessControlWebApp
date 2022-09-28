@@ -22,8 +22,7 @@ h1 {
 }
 
 #heading {
-    height: 300px;
-    overflow: scroll;
+    height: 100px;
     font-size: large;
     /*background-image: url('./images/main_background.png');
 	background-repeat: no-repeat;
