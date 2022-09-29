@@ -410,7 +410,7 @@ var myChart = new Chart(ctx, {
     },
     title: {
       display: true,
-      text: 'Chart.js Radar Chart',
+      text: 'Smoker Stats',
       fontColor: 'white'
     },
     scale: {
@@ -424,9 +424,6 @@ var myChart = new Chart(ctx, {
       },
       gridLines: {
         color: 'rgba(255, 255, 255, 0.2)'
-      },
-      angleLines: {
-        color: 'white' // lines radiating from the center
       }
     }
   }

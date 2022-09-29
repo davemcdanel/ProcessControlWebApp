@@ -11,9 +11,8 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-/*    height: 100vh; */
     color: white;
-    background-color:black;
+    background-color: black;
 }
 
 h1 {
@@ -24,10 +23,6 @@ h1 {
 #heading {
     height: 100px;
     font-size: large;
-    /*background-image: url('./images/main_background.png');
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-size: 100% 100%;*/
 }
 
 #title {
