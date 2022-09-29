@@ -36,17 +36,17 @@ h1 {
 }
 
 #temperature {
-    color:red;
+    color:rgb(255, 0, 0);
 }
 
 #setpoint {
-    color: blue;
+    color: rgb(0, 0, 255);
 }
 
 #internal {
-    color: orange;
+    color: rgb(255, 166, 0);
 }
 
 #output{
-    color: green
+    color: rgb(0, 128, 0);
 }

@@ -359,8 +359,8 @@ var myChart = new Chart(ctx, {
     datasets: [{
       label:'Temp',
       data: 0,
-      backgroundColor:'rgba(255, 99, 132, 0.2)',
-      borderColor:'rgba(255, 99, 132, 1)',
+      backgroundColor:'rgba(255, 0, 0, 0.3)',
+      borderColor:'rgba(255, 0, 0, 1)',
       borderWidth:1,
       fill: false,
       interaction: {
@@ -370,8 +370,8 @@ var myChart = new Chart(ctx, {
     },{
       label:'Setpoint',
       data:0,
-      backgroundColor:'rgba(54, 162, 235, 0.2)',
-      borderColor:'rgba(54, 162, 235, 1)',
+      backgroundColor:'rgba(0, 0, 255, 0.3)',
+      borderColor:'rgba(0, 0, 255, 1)',
       borderWidth:1,
       fill: false,
       interaction: {
@@ -381,8 +381,8 @@ var myChart = new Chart(ctx, {
     },{
       label:'Internal',
       data:0,
-      backgroundColor:'rgba(255, 206, 86, 0.2)',
-      borderColor:'rgba(255, 206, 86, 1)',
+      backgroundColor:'rgba(255, 166, 0, 0.3)',
+      borderColor:'rgba(255, 166, 0, 1)',
       borderWidth:1,
       fill: false,
       interaction: {
@@ -392,8 +392,8 @@ var myChart = new Chart(ctx, {
     },{
       label:'Output',
       data:0,
-      backgroundColor:'rgba(10, 150, 0, 0.2)',
-      borderColor:'rgba(10, 150, 0, 1)',
+      backgroundColor:'rgba(0, 128, 0, 0.3)',
+      borderColor:'rgba(0, 128, 0, 1)',
       borderWidth:1,
       fill: false,
       interaction: {
