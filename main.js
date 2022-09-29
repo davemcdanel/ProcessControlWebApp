@@ -432,7 +432,7 @@ var myChart = new Chart(ctx, {
 function getRecvIdInput() {
   if (localStorage.getItem('recvIdInput') === null) {
     recvIdInput.textContent = 'Enter Smoker ID';
-  }else {
+  } else {
     recvIdInput.textContent = localStorage.getItem('recvIdInput');
     recvIdInput.value = localStorage.getItem('recvIdInput');
   }
@@ -446,7 +446,7 @@ function setRecvIdInput(e) {
       recvIdInput.blur();
       join();
     }
-  }else {
+  } else {
     localStorage.setItem('recvIdInput', e.target.innerText);
   }
 }

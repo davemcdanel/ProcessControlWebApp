@@ -28,24 +28,23 @@ h1 {
 #title {
     text-align: center;
     font-size: medium;
-
 }
 
 #controllerStatus {
     text-align: center;
-    font-size: x-large;
+    font-size: large;
 }
 
 #temperature {
-    color:red
+    color:red;
 }
 
 #setpoint {
-    color: blue
+    color: blue;
 }
 
 #orange {
-    color: orange
+    color: orange;
 }
 
 #output{
