@@ -480,10 +480,10 @@ temperatureLabel.addEventListener('keypress', setTemperatureLabel);
 temperatureLabel.addEventListener('blur' , setTemperatureLabel);
 
 //connectButton.addEventListener('click', join);
-set_setpoint.addEventListener('blur',send_set_setpoint);
-set_prop.addEventListener('blur',send_set_prop);
-set_inter.addEventListener('blur',send_set_inter);
-set_derv.addEventListener('blur',send_set_derv);
+//set_setpoint.addEventListener('blur',send_set_setpoint);
+//set_prop.addEventListener('blur',send_set_prop);
+//set_inter.addEventListener('blur',send_set_inter);
+//set_derv.addEventListener('blur',send_set_derv);
 
 startSW();
 initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
