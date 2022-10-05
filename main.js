@@ -9,6 +9,7 @@ temperature = document.getElementById("temperature");
 recvIdInput = document.getElementById("recvIdInput");
 set_setpoint = document.getElementById("set_setpoint");
 connectButton = document.getElementById("connect-button");
+temperatureLabel = document.getElementById("temperatureLabel");
 //Version
 version = '0.2.16';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
@@ -451,8 +452,31 @@ function setRecvIdInput(e) {
   }
 }
 
+function getTemperatureLabel(){
+  if(localStorage.getItem('temperatureLabel')===null) {
+    temperatureLabel.textContent = '';
+  } else {
+    temperatureLabel.textContent = localStorage.getItem('temperatureLabel')
+  }
+}
+
+function setTemperatureLabel(e) {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed
+    if (e.which == 13 || e.keyCode == 13) {
+      localStorage.setItem('temperatureLabel', e.target.innerText);
+      focus.blur();
+    }
+  } else {
+    localStorage.setItem('temperatureLabel', e.target.innerText);
+  }
+}
+
 recvIdInput.addEventListener('keypress', setRecvIdInput);
 recvIdInput.addEventListener('blur', setRecvIdInput);
+
+temperatureLabel.addEventListener('keypress', setTemperatureLabel);
+temperatureLabel.addEventListener('blur' , setTemperatureLabel);
 
 //connectButton.addEventListener('click', join);
 set_setpoint.addEventListener('blur',send_set_setpoint);
