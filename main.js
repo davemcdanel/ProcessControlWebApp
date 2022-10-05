@@ -455,6 +455,7 @@ function setRecvIdInput(e) {
 function getTemperatureLabel(){
   if(localStorage.getItem('temperatureLabel')===null) {
     temperatureLabel.textContent = '';
+    temperatureLabel.display = 'none';
   } else {
     temperatureLabel.textContent = localStorage.getItem('temperatureLabel')
   }
@@ -489,3 +490,4 @@ initializePeerJS(); // Since all our callbacks are setup, start the process of o
 //initializeGraph();
 getRecvIdInput();
 sendRequest();
+setTemperatureLabel('Temp: ');
