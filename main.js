@@ -458,6 +458,7 @@ function getTemperatureLabel(){
     temperatureLabel.display = 'none';
   } else {
     temperatureLabel.textContent = localStorage.getItem('temperatureLabel');
+    recvIdInput.value = localStorage.getItem('temperatureLabel');
   }
 }
 
@@ -489,4 +490,5 @@ startSW();
 initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
 //initializeGraph();
 getRecvIdInput();
+getTemperatureLabel();
 sendRequest();
