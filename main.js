@@ -10,6 +10,9 @@ recvIdInput = document.getElementById("recvIdInput");
 set_setpoint = document.getElementById("set_setpoint");
 connectButton = document.getElementById("connect-button");
 temperatureLabel = document.getElementById("temperatureLabel");
+setpointLabel = document.getElementById("setpointLabel");
+internalLabel = document.getElementById("internalLabel");
+outputLabel = document.getElementById("outputLabel");
 //Version
 version = '0.2.16';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
@@ -458,7 +461,7 @@ function getTemperatureLabel(){
     temperatureLabel.display = 'none';
   } else {
     temperatureLabel.textContent = localStorage.getItem('temperatureLabel');
-    recvIdInput.value = localStorage.getItem('temperatureLabel');
+    temperatureLabel.value = localStorage.getItem('temperatureLabel');
   }
 }
 
@@ -474,11 +477,86 @@ function setTemperatureLabel(e) {
   }
 }
 
+function getSetpointLabel(){
+  if(localStorage.getItem('setpointLabel')===null) {
+    setpointLabel.textContent = '';
+    setpointLabel.display = 'none';
+  } else {
+    setpointLabel.textContent = localStorage.getItem('setpointLabel');
+    setpointLabel.value = localStorage.getItem('setpointLabel');
+  }
+}
+
+function setSetpointLabel(e) {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed
+    if (e.which == 13 || e.keyCode == 13) {
+      localStorage.setItem('setpointLabel', e.target.innerText);
+      setpointLabel.blur();
+    }
+  } else {
+    localStorage.setItem('setpointLabel', e.target.innerText);
+  }
+}
+
+function getInternalLabel(){
+  if(localStorage.getItem('internalLabel')===null) {
+    internalLabel.textContent = '';
+    internalLabel.display = 'none';
+  } else {
+    internalLabel.textContent = localStorage.getItem('internalLabel');
+    internalLabel.value = localStorage.getItem('internalLabel');
+  }
+}
+
+function setInternalLabel(e) {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed
+    if (e.which == 13 || e.keyCode == 13) {
+      localStorage.setItem('internalLabel', e.target.innerText);
+      internalLabel.blur();
+    }
+  } else {
+    localStorage.setItem('internalLabel', e.target.innerText);
+  }
+}
+
+function getOutputLabel(){
+  if(localStorage.getItem('outputLabel')===null) {
+    outputLabel.textContent = '';
+    outputLabel.display = 'none';
+  } else {
+    outputLabel.textContent = localStorage.getItem('outputLabel');
+    outputLabel.value = localStorage.getItem('outputLabel');
+  }
+}
+
+function setOutputLabel(e) {
+  if (e.type === 'keypress') {
+    // Make sure enter is pressed
+    if (e.which == 13 || e.keyCode == 13) {
+      localStorage.setItem('outputLabel', e.target.innerText);
+      outputLabel.blur();
+    }
+  } else {
+    localStorage.setItem('outputLabel', e.target.innerText);
+  }
+}
+
 recvIdInput.addEventListener('keypress', setRecvIdInput);
 recvIdInput.addEventListener('blur', setRecvIdInput);
 
 temperatureLabel.addEventListener('keypress', setTemperatureLabel);
 temperatureLabel.addEventListener('blur' , setTemperatureLabel);
+
+setpointLabel.addEventListener('keypress', setSetpointLabel);
+setpointLabel.addEventListener('blur' , setSetpointLabel);
+
+internalLabel.addEventListener('keypress', setInternalLabel);
+internalLabel.addEventListener('blur', setInternalLabel);
+
+outputLabel.addEventListener('keypress', setOutputLabel);
+outputLabel.addEventListener('blur', setOutputLabel);
 
 //connectButton.addEventListener('click', join);
 //set_setpoint.addEventListener('blur',send_set_setpoint);
@@ -491,4 +569,7 @@ initializePeerJS(); // Since all our callbacks are setup, start the process of o
 //initializeGraph();
 getRecvIdInput();
 getTemperatureLabel();
+getSetpointLabel();
+getInternalLabel();
+getOutputLabel();
 sendRequest();
