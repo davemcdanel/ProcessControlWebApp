@@ -457,7 +457,7 @@ function getTemperatureLabel(){
     temperatureLabel.textContent = '';
     temperatureLabel.display = 'none';
   } else {
-    temperatureLabel.textContent = localStorage.getItem('temperatureLabel')
+    temperatureLabel.textContent = localStorage.getItem('temperatureLabel');
   }
 }
 
@@ -466,7 +466,7 @@ function setTemperatureLabel(e) {
     // Make sure enter is pressed
     if (e.which == 13 || e.keyCode == 13) {
       localStorage.setItem('temperatureLabel', e.target.innerText);
-      focus.blur();
+      temperatureLabel.blur();
     }
   } else {
     localStorage.setItem('temperatureLabel', e.target.innerText);
@@ -490,4 +490,3 @@ initializePeerJS(); // Since all our callbacks are setup, start the process of o
 //initializeGraph();
 getRecvIdInput();
 sendRequest();
-setTemperatureLabel('Temp: ');
