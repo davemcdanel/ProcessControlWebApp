@@ -153,12 +153,14 @@ function join() {
     conn.close();
   }
 
-  console.log('Try to Connect...');
+  console.log('Finding peer...');
 
   // Create connection to destination peer specified in the input field
   conn = peer.connect(recvIdInput.value, {
     reliable: true
   });
+
+  console.log('Connecting to peer:' + conn.peer + '...');
 
   conn.on('open', function () {
     status.innerHTML = "Status: " + "Connected to - " + conn.peer;
