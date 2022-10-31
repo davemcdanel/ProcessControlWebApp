@@ -313,7 +313,7 @@ function sendRequest() {
     }
   }
   setTimeout(sendRequest, ((graphUpdateTime*1000)/request_list.length));
-  console.log("graphUpdateTime:" + graphUpdateTime)
+  console.log("graphUpdateTime:" + graphUpdateTime);
 }
 
 // Send the new setpoint
