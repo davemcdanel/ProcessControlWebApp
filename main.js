@@ -1,7 +1,7 @@
 // DOM Elements
 title = document.getElementById("title");
 output = document.getElementById("output");
-status = document.getElementById("status");
+status_banner = document.getElementById("status");
 setpoint = document.getElementById("setpoint");
 internal = document.getElementById("internal");
 graphdiv2 = document.getElementById("graphdiv2");
@@ -14,7 +14,7 @@ setpointLabel = document.getElementById("setpointLabel");
 internalLabel = document.getElementById("internalLabel");
 outputLabel = document.getElementById("outputLabel");
 //Version
-version = '0.2.16';
+version = '0.2.17';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 //  
 var dataChart = $("#myChart");
@@ -104,7 +104,7 @@ function initializePeerJS() {
   peer.on('open', function (id) {
     // Workaround for peer.reconnect deleting previous id
     if (peer.id === null) {
-      status.innerHTML = "Status: " + "Received null id from peer open.";
+      status_banner.innerHTML = "Status: " + "Received null id from peer open.";
       console.log('Received null id from peer open');
       peer.id = lastPeerId;
     } else {
@@ -122,7 +122,7 @@ function initializePeerJS() {
   });
 
   peer.on('disconnected', function () {
-    status.innerHTML = "Status: " + "Connection lost. Please reconnect.";
+    status_banner.innerHTML = "Status: " + "Connection lost. Please reconnect.";
     console.log('Connection lost. Please reconnect');
     // Workaround for peer.reconnect deleting previous id
     peer.id = lastPeerId;
@@ -132,7 +132,7 @@ function initializePeerJS() {
 
   peer.on('close', function() {
     conn = null;
-    status.innerHTML = "Status: " + "Connection destroyed. Please refresh.";
+    status_banner.innerHTML = "Status: " + "Connection destroyed. Please refresh.";
     console.log('Connection destroyed');
   });
 
@@ -163,7 +163,7 @@ function join() {
   console.log('Connecting to peer:' + conn.peer + '...');
 
   conn.on('open', function () {
-    status.innerHTML = "Status: " + "Connected to - " + conn.peer;
+    status_banner.innerHTML = "Status: " + "Connected to - " + conn.peer;
     console.log("Connected to: " + conn.peer);
 
     // Check URL params for comamnds that should be sent immediately
@@ -260,7 +260,7 @@ function join() {
     }
   });
   conn.on('close', function () {
-    status.innerHTML = "Status: " + "Connection closed.";
+    status_banner.innerHTML = "Status: " + "Connection closed.";
   });
 }
 
