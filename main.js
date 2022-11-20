@@ -358,82 +358,93 @@ function startSW (){
  }
 }
 
-var ctx = document.getElementById('myChart').getContext('2d');
-var myChart = new Chart(ctx, {
-  type: 'line',
-  data: {
-    datasets: [{
-      label:'Temp',
-      data: 0,
-      backgroundColor:'rgba(255, 0, 0, 0.3)',
-      borderColor:'rgba(255, 0, 0, 1)',
-      borderWidth:1,
-      fill: false,
-      interaction: {
-        intersect: false
+d3.csv('temperatures.cvs').then(populateChart);
+
+function populateChart(_temperatures){
+  var _timeLabels = _temperatures.map(function(d) {return d.Timestamp});
+  var _ExternalData = _temperatures.map(function(d) {return d.ExternalTemp});
+  var _SetpointData = _temperatures.map(function(d) {return d.Setpoint});
+  var _InternalData = _temperatures.map(function(d) {return d.InternalTemp});
+  var _OutputData = _temperatures.map(function(d) {return d.Output});
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+  var myChart = new Chart(ctx, {
+   type: 'line',
+    data: {
+      labels: _timeLabels,
+      datasets: [{
+       label:'Temp',
+       data:_ExternalData,
+       backgroundColor:'rgba(255, 0, 0, 0.3)',
+       borderColor:'rgba(255, 0, 0, 1)',
+       borderWidth:1,
+       fill: false,
+       interaction: {
+         intersect: false
+         },
+       radius: 0
+     },{
+        label:'Setpoint',
+        data:_SetpointData,
+        backgroundColor:'rgba(0, 0, 255, 0.3)',
+        borderColor:'rgba(0, 0, 255, 1)',
+        borderWidth:1,
+        fill: false,
+        interaction: {
+          intersect: false
+          },
+        radius: 0
+     },{
+        label:'Internal',
+        data:_InternalData,
+        backgroundColor:'rgba(255, 166, 0, 0.3)',
+        borderColor:'rgba(255, 166, 0, 1)',
+       borderWidth:1,
+        fill: false,
+        interaction: {
+          intersect: false
+       },
+       radius: 0
+     },{
+       label:'Output',
+       data:_OutputData,
+       backgroundColor:'rgba(0, 128, 0, 0.3)',
+       borderColor:'rgba(0, 128, 0, 1)',
+       borderWidth:1,
+       fill: false,
+        interaction: {
+         intersect: false
+       },
+       radius: 0
+     }]},
+   options: {
+      legend: {
+        position: 'top',
+       labels: {
+         fontColor: 'white'
+       }
+     },
+     title: {
+        display: true,
+       text: 'Smoker Stats',
+       fontColor: 'white'
+     },
+     scale: {
+       ticks: {
+         beginAtZero: true,
+          fontColor: 'white', // labels such as 10, 20, etc
+          showLabelBackdrop: false // hide square behind text
         },
-      radius: 0
-    },{
-      label:'Setpoint',
-      data:0,
-      backgroundColor:'rgba(0, 0, 255, 0.3)',
-      borderColor:'rgba(0, 0, 255, 1)',
-      borderWidth:1,
-      fill: false,
-      interaction: {
-        intersect: false
-        },
-      radius: 0
-    },{
-      label:'Internal',
-      data:0,
-      backgroundColor:'rgba(255, 166, 0, 0.3)',
-      borderColor:'rgba(255, 166, 0, 1)',
-      borderWidth:1,
-      fill: false,
-      interaction: {
-        intersect: false
-      },
-      radius: 0
-    },{
-      label:'Output',
-      data:0,
-      backgroundColor:'rgba(0, 128, 0, 0.3)',
-      borderColor:'rgba(0, 128, 0, 1)',
-      borderWidth:1,
-      fill: false,
-      interaction: {
-        intersect: false
-      },
-      radius: 0
-    }]},
-  options: {
-    legend: {
-      position: 'top',
-      labels: {
-        fontColor: 'white'
-      }
-    },
-    title: {
-      display: true,
-      text: 'Smoker Stats',
-      fontColor: 'white'
-    },
-    scale: {
-      ticks: {
-        beginAtZero: true,
-        fontColor: 'white', // labels such as 10, 20, etc
-        showLabelBackdrop: false // hide square behind text
-      },
-      pointLabels: {
-        fontColor: 'white' // labels around the edge like 'Running'
-      },
-      gridLines: {
-        color: 'rgba(255, 255, 255, 0.2)'
-      }
-    }
-  }
-});
+       pointLabels: {
+         fontColor: 'white' // labels around the edge like 'Running'
+       },
+       gridLines: {
+         color: 'rgba(255, 255, 255, 0.2)'
+       }
+     }
+   }
+  });  
+}
 
 function getRecvIdInput() {
   if (localStorage.getItem('recvIdInput') === null) {
