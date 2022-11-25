@@ -358,23 +358,30 @@ function startSW (){
  }
 }
 
-d3.csv('temperatures.cvs').then(populateChart);
+function request_historical_data(){
+  if (conn && conn.open) {
+    conn.send({ command:'Get', type:'file', name:'./temperautres.csv', payload:null });
+    console.log('Sent: Get file ./temperatures.csv null');
+    populateChart();
+  }
+}
+//d3.csv('temperatures.cvs').then(populateChart);
 
-function populateChart(_temperatures){
-  var _timeLabels = _temperatures.map(function(d) {return d.Timestamp});
-  var _ExternalData = _temperatures.map(function(d) {return d.ExternalTemp});
-  var _SetpointData = _temperatures.map(function(d) {return d.Setpoint});
-  var _InternalData = _temperatures.map(function(d) {return d.InternalTemp});
-  var _OutputData = _temperatures.map(function(d) {return d.Output});
+function populateChart(){
+  //var _timeLabels = _temperatures.map(function(d) {return d.Timestamp});
+  //var _ExternalData = _temperatures.map(function(d) {return d.ExternalTemp});
+  //var _SetpointData = _temperatures.map(function(d) {return d.Setpoint});
+  //var _InternalData = _temperatures.map(function(d) {return d.InternalTemp});
+  //var _OutputData = _temperatures.map(function(d) {return d.Output});
 
   var ctx = document.getElementById('myChart').getContext('2d');
   var myChart = new Chart(ctx, {
    type: 'line',
     data: {
-      labels: _timeLabels,
+      //labels: _timeLabels,
       datasets: [{
        label:'Temp',
-       data:_ExternalData,
+       //data:_ExternalData,
        backgroundColor:'rgba(255, 0, 0, 0.3)',
        borderColor:'rgba(255, 0, 0, 1)',
        borderWidth:1,
@@ -385,7 +392,7 @@ function populateChart(_temperatures){
        radius: 0
      },{
         label:'Setpoint',
-        data:_SetpointData,
+        //data:_SetpointData,
         backgroundColor:'rgba(0, 0, 255, 0.3)',
         borderColor:'rgba(0, 0, 255, 1)',
         borderWidth:1,
@@ -396,7 +403,7 @@ function populateChart(_temperatures){
         radius: 0
      },{
         label:'Internal',
-        data:_InternalData,
+        //data:_InternalData,
         backgroundColor:'rgba(255, 166, 0, 0.3)',
         borderColor:'rgba(255, 166, 0, 1)',
        borderWidth:1,
@@ -407,7 +414,7 @@ function populateChart(_temperatures){
        radius: 0
      },{
        label:'Output',
-       data:_OutputData,
+       //data:_OutputData,
        backgroundColor:'rgba(0, 128, 0, 0.3)',
        borderColor:'rgba(0, 128, 0, 1)',
        borderWidth:1,
@@ -580,6 +587,7 @@ outputLabel.addEventListener('blur', setOutputLabel);
 startSW();
 initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
 //initializeGraph();
+request_historical_data();
 getRecvIdInput();
 getTemperatureLabel();
 getSetpointLabel();
