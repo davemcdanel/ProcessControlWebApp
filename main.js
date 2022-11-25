@@ -168,8 +168,11 @@ function join() {
 
     // Check URL params for comamnds that should be sent immediately
     var command = getUrlParam("command");
-    if (command)
+    if (command){
       conn.send(command);
+    }
+    console.log("Get historical data...");
+    request_historical_data();
   });
 
   // Handle incoming data (messages only since this is the signal sender)
@@ -587,7 +590,6 @@ outputLabel.addEventListener('blur', setOutputLabel);
 startSW();
 initializePeerJS(); // Since all our callbacks are setup, start the process of obtaining an ID
 //initializeGraph();
-request_historical_data();
 getRecvIdInput();
 getTemperatureLabel();
 getSetpointLabel();
