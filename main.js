@@ -173,6 +173,7 @@ function join() {
     }
     console.log("Get historical data...");
     request_historical_data();
+    sendRequest();
   });
 
   // Handle incoming data (messages only since this is the signal sender)
@@ -595,4 +596,3 @@ getTemperatureLabel();
 getSetpointLabel();
 getInternalLabel();
 getOutputLabel();
-sendRequest();
