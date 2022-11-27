@@ -180,7 +180,7 @@ function join() {
   conn.on('data', function (dataObject) {
     //addMessage("<span class=\"peerMsg\">Peer:</span> " + data);
     //console.log("Recieved: " + dataObject);
-    console.log('Recvd: ' + dataObject.command + ' ' + dataObject.type + ' ' + dataObject.name + ' ' + dataObject.payload);
+    console.log('conn.on data Recvd: ' + dataObject.command + ' ' + dataObject.type + ' ' + dataObject.name + ' ' + dataObject.payload);
     switch (dataObject.command) {
       case 'Get':
         switch (dataObject.type){
@@ -263,6 +263,7 @@ function join() {
           break;
     }
   });
+
   conn.on('close', function () {
     status_banner.innerHTML = "Status: " + "Connection closed.";
   });
@@ -292,7 +293,7 @@ function sendRequest() {
           switch (dataObject_list[request_itarator].type) {
             case 'value':
               conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
-//              console.log('Sent: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
+              console.log('sendRequest: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
               break;
             default:
           }
@@ -301,7 +302,7 @@ function sendRequest() {
           switch (dataObject_list[request_itarator].type) {
             case 'value':
               conn.send({ command:dataObject_list[request_itarator].command, type:dataObject_list[request_itarator].type, name:dataObject_list[request_itarator].name, payload:dataObject_list[request_itarator].payload});
-//              console.log('Sent: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
+              console.log('sendRequest: ' + dataObject_list[request_itarator].command + ' ' + dataObject_list[request_itarator].type + ' ' + dataObject_list[request_itarator].name + ' ' + dataObject_list[request_itarator].payload);
               dataObject_list[request_itarator].command = 'Get';
               dataObject_list[request_itarator].payload = null;
               break;
@@ -316,7 +317,7 @@ function sendRequest() {
       }
     }
   }
-  setTimeout(sendRequest, ((graphUpdateTime*1000)/request_list.length));
+  setTimeout(sendRequest, ((graphUpdateTime)/request_list.length));
   console.log("graphUpdateTime:" + graphUpdateTime);
 }
 
