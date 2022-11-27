@@ -373,6 +373,7 @@ function request_historical_data(){
 //d3.csv('temperatures.cvs').then(populateChart);
 
 function populateChart(){
+  var _timeLabels = new Date();
   //var _timeLabels = _temperatures.map(function(d) {return d.Timestamp});
   //var _ExternalData = _temperatures.map(function(d) {return d.ExternalTemp});
   //var _SetpointData = _temperatures.map(function(d) {return d.Setpoint});
@@ -383,7 +384,7 @@ function populateChart(){
   var myChart = new Chart(ctx, {
    type: 'line',
     data: {
-      //labels: _timeLabels,
+      labels: _timeLabels,
       datasets: [{
        label:'Temp',
        //data:_ExternalData,
