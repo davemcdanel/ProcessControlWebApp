@@ -17,6 +17,8 @@ outputLabel = document.getElementById("outputLabel");
 version = '0.2.18';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 //  
+var ctx = document.getElementById('myChart').getContext('2d');
+var myChart = null;
 var dataChart = $("#myChart");
 var graphUpdateTime = 1000;
 var request_string;
@@ -388,8 +390,8 @@ function createChart(){
   //var _InternalData = _temperatures.map(function(d) {return d.InternalTemp});
   //var _OutputData = _temperatures.map(function(d) {return d.Output});
 
-  var ctx = document.getElementById('myChart').getContext('2d');
-  var myChart = new Chart(ctx, {
+  //var ctx = document.getElementById('myChart').getContext('2d');
+  myChart = new Chart(ctx, {
    type: 'line',
     data: {
       labels: _timeLabels.toString(),
