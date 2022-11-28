@@ -322,7 +322,7 @@ function sendRequest() {
       }
     }
   }
-  setTimeout(sendRequest, ((graphUpdateTime)/request_list.length));
+  setTimeout(sendRequest, ((graphUpdateTime)*10/request_list.length));
   console.log("graphUpdateTime:" + graphUpdateTime);
 }
 
