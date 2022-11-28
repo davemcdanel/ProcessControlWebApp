@@ -394,10 +394,9 @@ function createChart(){
   myChart = new Chart(ctx, {
    type: 'line',
     data: {
-      labels: _timeLabels.toString(),
+      //labels: _timeLabels.toString(),
       datasets: [{
        label:'Temp',
-       //data:_ExternalData,
        backgroundColor:'rgba(255, 0, 0, 0.3)',
        borderColor:'rgba(255, 0, 0, 1)',
        borderWidth:1,
@@ -408,7 +407,6 @@ function createChart(){
        radius: 0
      },{
         label:'Setpoint',
-        //data:_SetpointData,
         backgroundColor:'rgba(0, 0, 255, 0.3)',
         borderColor:'rgba(0, 0, 255, 1)',
         borderWidth:1,
@@ -419,7 +417,6 @@ function createChart(){
         radius: 0
      },{
         label:'Internal',
-        //data:_InternalData,
         backgroundColor:'rgba(255, 166, 0, 0.3)',
         borderColor:'rgba(255, 166, 0, 1)',
        borderWidth:1,
@@ -430,7 +427,6 @@ function createChart(){
        radius: 0
      },{
        label:'Output',
-       //data:_OutputData,
        backgroundColor:'rgba(0, 128, 0, 0.3)',
        borderColor:'rgba(0, 128, 0, 1)',
        borderWidth:1,
@@ -462,7 +458,7 @@ function createChart(){
          fontColor: 'white' // labels around the edge like 'Running'
        },
        gridLines: {
-         color: 'rgba(255, 255, 255, 0.2)'
+         color: 'rgba(0, 0, 0, 0.2)'
        }
      }
    }
