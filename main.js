@@ -140,7 +140,7 @@ function initializePeerJS() {
 
   peer.on('error', function (err) {
     console.log(err);
-    alert('' + err);
+    //alert('' + err);
   });
 }
 
