@@ -14,7 +14,7 @@ setpointLabel = document.getElementById("setpointLabel");
 internalLabel = document.getElementById("internalLabel");
 outputLabel = document.getElementById("outputLabel");
 //Version
-version = '0.2.17';
+version = '0.2.18';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 //  
 var dataChart = $("#myChart");
@@ -153,6 +153,8 @@ function join() {
     conn.close();
   }
 
+  destroyChart();
+
   console.log('Finding peer...');
 
   // Create connection to destination peer specified in the input field
@@ -172,6 +174,7 @@ function join() {
       conn.send(command);
     }
     console.log("Get historical data...");
+    createChart();
     request_historical_data();
     sendRequest();
   });
@@ -367,12 +370,15 @@ function request_historical_data(){
   if (conn && conn.open) {
     conn.send({ command:'Get', type:'file', name:'./temperautres.csv', payload:null });
     console.log('Sent: Get file ./temperatures.csv null');
-    populateChart();
   }
 }
 //d3.csv('temperatures.cvs').then(populateChart);
 
-function populateChart(){
+function destroyChart(){
+  myChart.destroy();
+}
+
+function createChart(){
   var _timeLabels = new Date();
   //var _timeLabels = _temperatures.map(function(d) {return d.Timestamp});
   //var _ExternalData = _temperatures.map(function(d) {return d.ExternalTemp});
