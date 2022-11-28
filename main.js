@@ -377,7 +377,7 @@ function request_historical_data(){
 //d3.csv('temperatures.cvs').then(populateChart);
 
 function destroyChart(){
-  if (mychart){
+  if (myChart){
     console.log('destroyChart!');
   }
 }
