@@ -384,7 +384,7 @@ function populateChart(){
   var myChart = new Chart(ctx, {
    type: 'line',
     data: {
-      labels: _timeLabels.getDate(),
+      //labels: _timeLabels.getDate(),
       datasets: [{
        label:'Temp',
        //data:_ExternalData,
