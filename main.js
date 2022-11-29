@@ -175,9 +175,11 @@ function join() {
     if (command){
       conn.send(command);
     }
-    console.log("Get historical data...");
+    console.log("Create chart...");
     createChart();
+    console.log("Request historical data...");
     request_historical_data();
+    console.log("Start request loop...");
     sendRequest();
   });
 
@@ -252,7 +254,7 @@ function join() {
                     myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
                     myChart.data.datasets[2].data.push(dataObject.payload['Internal']);
                     myChart.data.datasets[3].data.push(dataObject.payload['Output']);
-                    graphUpdateTime = dataObject.payload['GraphUpdate']
+                    graphUpdateTime = dataObject.payload['GraphUpdate'];
                     myChart.update();
                   }
                   break;
@@ -322,7 +324,7 @@ function sendRequest() {
       }
     }
   }
-  setTimeout(sendRequest, ((graphUpdateTime)*10/request_list.length));
+  setTimeout(sendRequest, ((graphUpdateTime)*1000/request_list.length));
   console.log("graphUpdateTime:" + graphUpdateTime);
 }
 
