@@ -20,7 +20,7 @@ title.innerHTML = 'Dave\'s Red Smoker ' + version;
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = null;
 var dataChart = $("#myChart");
-var graphUpdateTime = 1;
+var graphUpdateTime = 1000;
 var request_string;
 var peer = null; // own peer object
 var conn = null;
@@ -254,7 +254,7 @@ function join() {
                     myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
                     myChart.data.datasets[2].data.push(dataObject.payload['Internal']);
                     myChart.data.datasets[3].data.push(dataObject.payload['Output']);
-                    graphUpdateTime = dataObject.payload['GraphUpdate'];
+                    //graphUpdateTime = dataObject.payload['GraphUpdate'];
                     myChart.update();
                   }
                   break;
@@ -324,8 +324,8 @@ function sendRequest() {
       }
     }
   }
-  setTimeout(sendRequest, ((graphUpdateTime)*1000/request_list.length));
-  console.log("graphUpdateTime:" + graphUpdateTime);
+  setTimeout(sendRequest, ((graphUpdateTime)/request_list.length));
+  console.log("graphUpdateTime:" + graphUpdateTime + " / " + request_list.length);
 }
 
 // Send the new setpoint
