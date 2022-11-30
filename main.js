@@ -372,8 +372,8 @@ function startSW (){
 
 function request_historical_data(){
   if (conn && conn.open) {
-    conn.send({ command:'Get', type:'file', name:'./temperautres.csv', payload:null });
-    console.log('Sent: Get file ./temperatures.csv null');
+    conn.send({ command:'Get', type:'file', name:'history', payload:null });
+    console.log('Sent: Get file history');
   }
 }
 //d3.csv('temperatures.cvs').then(populateChart);
