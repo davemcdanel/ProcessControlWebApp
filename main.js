@@ -389,7 +389,7 @@ function createChart(){
 
   //var ctx = document.getElementById('myChart').getContext('2d');
   myChart = new Chart(ctx, {
-   type: 'line',
+    type: 'line',
     data: {
       //labels: _timeLabels.toString(),
       datasets: [{
@@ -433,23 +433,26 @@ function createChart(){
        },
        radius: 0
      }]},
-   options: {
+    options: {
       legend: {
         position: 'top',
        labels: {
          fontColor: 'white'
        }
-     },
-     title: {
+      },
+      title: {
         display: true,
-       text: 'Smoker Stats',
-       fontColor: 'white'
-     },
-     scales: {
+        text: 'Smoker Stats',
+        fontColor: 'white'
+      },
+      scales: {
         x: {
           type: 'time',
           time: {
-            unit: 'minute'
+            displayFormats: {
+              hour: 'YYYY-MM-DD HH:MM:SS'
+            }
+            unit: 'hour'
           },
           ticks: {
             beginAtZero: true,
@@ -463,8 +466,8 @@ function createChart(){
             color: 'rgba(0, 0, 0, 0.2)'
           }
         }
-     }
-   }
+      }
+    }
   });  
 }
 
