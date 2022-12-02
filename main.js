@@ -450,7 +450,7 @@ function createChart(){
           type: 'timeseries',
           time: {
             displayFormats: {
-              hour: 'YYYY-MM-DD HH:MM:SS'
+              hour: 'yyyy-MM-dd h:mm:ss'
             },
             unit: 'hour'
           },
