@@ -257,7 +257,7 @@ function join() {
                                 'Setpoint:' + dataObject.payload['Setpoint'] +
                                 'Internal:' + dataObject.payload['Internal'] +
                                 'Output:' + dataObject.payload['Output']);
-                    if(dataObject.payload['Time'] > 0){
+                    if((dataObject.payload['Time'] > 0) && (dataObject.payload['Time'])){
                       myChart.data.labels.push(dataObject.payload['Time']);
                       myChart.data.datasets[0].data.push(dataObject.payload['Temp']);
                       myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
