@@ -19,7 +19,7 @@ title.innerHTML = 'Dave\'s Red Smoker ' + version;
 //  
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = null;
-var dataChart = $("#myChart");
+//var dataChart = $("#myChart");
 var infoUpdateTime = 1000; //refresh rate of the numbers from the server.
 var graphUpdateTime = 60000; //refresh rate of the graph using numbers from the server.
 var request_string;
@@ -252,12 +252,20 @@ function join() {
                   break;
                 case 'dataPoint':
                   if (dataObject.payload){
-                    myChart.data.labels.push(dataObject.payload['Time']);
-                    myChart.data.datasets[0].data.push(dataObject.payload['Temp']);
-                    myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
-                    myChart.data.datasets[2].data.push(dataObject.payload['Internal']);
-                    myChart.data.datasets[3].data.push(dataObject.payload['Output']);
-                    myChart.update();
+                    console.log('dataPoint: Time:' + dataObject.payload['Time'] +
+                                'Temp:' + dataObject.payload['Temp'] +
+                                'Setpoint:' + dataObject.payload['Setpoint'] +
+                                'Internal:' + dataObject.payload['Internal'] +
+                                'Output:' + dataObject.payload['Output']);
+                    if(dataObject.payload['Time'] > 0){
+                      myChart.data.labels.push(dataObject.payload['Time']);
+                      myChart.data.datasets[0].data.push(dataObject.payload['Temp']);
+                      myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
+                      myChart.data.datasets[2].data.push(dataObject.payload['Internal']);
+                      myChart.data.datasets[3].data.push(dataObject.payload['Output']);
+                      myChart.update();
+                    }
+                    
                   }
                   break;
                 default:
