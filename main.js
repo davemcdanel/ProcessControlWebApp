@@ -20,7 +20,8 @@ title.innerHTML = 'Dave\'s Red Smoker ' + version;
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = null;
 var dataChart = $("#myChart");
-var graphUpdateTime = 1000;
+var infoUpdateTime = 1000; //refresh rate of the numbers from the server.
+var graphUpdateTime = 1000; //refresh rate of the graph using numbers from the server.
 var request_string;
 var peer = null; // own peer object
 var conn = null;
@@ -34,8 +35,7 @@ var dataObject_list = [{command:'Get', type:'value', name:'temperature', payload
   {command:'Get', type:'value', name:'prop', payload:null },
   {command:'Get', type:'value', name:'inter', payload:null },
   {command:'Get', type:'value', name:'derv', payload:null },
-  {command:'Get', type:'file', name:'temperatures.csv', payload:null },
-  {command:'Get', type:'value', name:'dataPoint', payload:null}];
+  {command:'Get', type:'value', name:'GraphUpdate', payload:null}];
 var request_list = [{type:'value', name:'temperature'},
   {type:'value', name:'setpoint'},
   {type:'value', name:'internal'},
@@ -43,8 +43,7 @@ var request_list = [{type:'value', name:'temperature'},
   {type:'value', name:'prop'},
   {type:'value', name:'inter'},
   {type:'value', name:'derv'},
-  {type:'file', name:'temperatures.csv'},
-  {type:'value', name:'dataPoint'}];
+  {type:'value', name:'GraphUpdate'}];
   // command: get or set.
   // type: value, file.
   // name: Name of the object.
@@ -180,7 +179,8 @@ function join() {
     console.log("Request historical data...");
     request_historical_data();
     console.log("Start request loop...");
-    sendRequest();
+    sendInfoRequest();
+    sendGraphRequest();
   });
 
   // Handle incoming data (messages only since this is the signal sender)
@@ -247,6 +247,9 @@ function join() {
                 case 'derv':
                   set_derv.value = dataObject.payload;
                   break;
+                case 'graphUpdateTime':
+                  graphUpdateTime = dataObject.payload;
+                  break;
                 case 'dataPoint':
                   if (dataObject.payload){
                     myChart.data.labels.push(dataObject.payload['Time']);
@@ -254,7 +257,6 @@ function join() {
                     myChart.data.datasets[1].data.push(dataObject.payload['Setpoint']);
                     myChart.data.datasets[2].data.push(dataObject.payload['Internal']);
                     myChart.data.datasets[3].data.push(dataObject.payload['Output']);
-                    //graphUpdateTime = dataObject.payload['GraphUpdate'];
                     myChart.update();
                   }
                   break;
@@ -276,23 +278,7 @@ function join() {
   });
 }
 
-// Request a new piece of data every 250 milliseconds.
-//
-//function sendRequest() {
-//  if (request_itarator < request_list.length){
-//    if (conn && conn.open){
-//      conn.send({ command:'Get', type:request_list[request_itarator].type, name:request_list[request_itarator].name, payload:null });
-//      console.log('Sent: Get ' + request_list[request_itarator].type + ' ' + request_list[request_itarator].name);
-//    }
-//    request_itarator++;
-//    if (request_itarator == request_list.length){
-//      request_itarator = 0;
-//    }
-//  }
-//  setTimeout(sendRequest, 250);
-//}
-
-function sendRequest() {
+function sendInfoRequest() {
   if (request_itarator < dataObject_list.length) {
     if (conn && conn.open) {
       switch (dataObject_list[request_itarator].command) {
@@ -324,8 +310,17 @@ function sendRequest() {
       }
     }
   }
-  setTimeout(sendRequest, ((graphUpdateTime)/request_list.length));
-  console.log("graphUpdateTime:" + graphUpdateTime + " / " + request_list.length);
+  setTimeout(sendInfoRequest, ((infoUpdateTime)/request_list.length));
+  console.log("infoUpdateTime:" + infoUpdateTime + " / " + request_list.length);
+}
+
+function sendGraphRequest(){
+  if (conn && conn.open) {
+    conn.send({ command:'Get', type:'value', name:'dataPoint', payload:null});
+    console.log('sendGraphRequest: Get value dataPoint');
+  }
+  setTimeout(sendGraphRequest, graphUpdateTime);
+  console.log(`graphUpdateTime: ${graphUpdateTime}`);
 }
 
 // Send the new setpoint
