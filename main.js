@@ -451,7 +451,7 @@ function createChart(){
           time: {
             displayFormats: {
               hour: 'YYYY-MM-DD HH:MM:SS'
-            }
+            },
             unit: 'hour'
           },
           ticks: {
