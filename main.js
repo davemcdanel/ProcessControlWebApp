@@ -447,7 +447,7 @@ function createChart(){
       },
       scales: {
         x: {
-          type: 'time',
+          type: 'timeseries',
           time: {
             displayFormats: {
               hour: 'YYYY-MM-DD HH:MM:SS'
