@@ -14,7 +14,7 @@ setpointLabel = document.getElementById("setpointLabel");
 internalLabel = document.getElementById("internalLabel");
 outputLabel = document.getElementById("outputLabel");
 //Version
-version = '0.2.20.1';
+version = '0.2.20.2';
 title.innerHTML = 'Dave\'s Red Smoker ' + version;
 //  
 var ctx = document.getElementById('myChart').getContext('2d');
@@ -447,7 +447,7 @@ function createChart(){
       },
       scales: {
         x: {
-          type: 'timeseries',
+          type: 'time',
           time: {
             displayFormats: {
               hour: 'yyyy-MM-dd h:mm:ss'
