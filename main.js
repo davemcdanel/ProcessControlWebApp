@@ -445,18 +445,24 @@ function createChart(){
        text: 'Smoker Stats',
        fontColor: 'white'
      },
-     scale: {
-       ticks: {
-         beginAtZero: true,
-          fontColor: 'white', // labels such as 10, 20, etc
-          showLabelBackdrop: false // hide square behind text
-        },
-       pointLabels: {
-         fontColor: 'white' // labels around the edge like 'Running'
-       },
-       gridLines: {
-         color: 'rgba(0, 0, 0, 0.2)'
-       }
+     scales: {
+        x: {
+          type: 'time',
+          time: {
+            unit: 'minute'
+          },
+          ticks: {
+            beginAtZero: true,
+            fontColor: 'white', // labels such as 10, 20, etc
+            showLabelBackdrop: false // hide square behind text
+          },
+          pointLabels: {
+            fontColor: 'white' // labels around the edge like 'Running'
+          },
+          gridLines: {
+            color: 'rgba(0, 0, 0, 0.2)'
+          }
+        }
      }
    }
   });  
