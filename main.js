@@ -180,7 +180,7 @@ function join() {
     request_historical_data();
     console.log("Start request loop...");
     sendInfoRequest();
-    sendGraphRequest();
+    //sendGraphRequest();
   });
 
   // Handle incoming data (messages only since this is the signal sender)
