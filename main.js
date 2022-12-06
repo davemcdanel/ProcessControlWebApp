@@ -20,7 +20,7 @@ title.innerHTML = 'Dave\'s Red Smoker ' + version;
 var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = null;
 //var dataChart = $("#myChart");
-var infoUpdateTime = 1000; //refresh rate of the numbers from the server.
+var infoUpdateTime = 5000; //refresh rate of the numbers from the server.
 var graphUpdateTime = 60000; //refresh rate of the graph using numbers from the server.
 var request_string;
 var peer = null; // own peer object
