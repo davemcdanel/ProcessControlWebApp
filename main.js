@@ -152,6 +152,7 @@ function join() {
   // Close old connection
   if (conn) {
     conn.close();
+    setTimeout(join,1000);
   }
 
   destroyChart();
