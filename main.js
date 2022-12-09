@@ -28,6 +28,7 @@ var conn = null;
 var lastPeerId = null;
 var temperatures = null;
 var request_itarator = 0;
+var connectRetryCounter = 0;
 var dataObject_list = [{command:'Get', type:'value', name:'temperature', payload:null },
   {command:'Get', type:'value', name:'setpoint', payload:null },
   {command:'Get', type:'value', name:'internal', payload:null },
@@ -100,6 +101,9 @@ function getUrlParam(name) {
  * peer object.
  */
 function initializePeerJS() {
+  if (peer){
+    peer.close();
+  }
   // Create own peer object with connection to shared PeerJS server
   peer = new Peer(null,{debug:2});
   peer.on('open', function (id) {
@@ -152,7 +156,10 @@ function join() {
   // Close old connection
   if (conn) {
     conn.close();
-    setTimeout(join,1000);
+    if (connectRetryCounter<5){
+      connectRetryCounter++;
+      setTimeout(initializePeerJS,1000);
+    }
   }
 
   destroyChart();
