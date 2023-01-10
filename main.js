@@ -158,7 +158,7 @@ function join() {
     conn.close();
     if (connectRetryCounter<5){
       connectRetryCounter++;
-      setTimeout(initializePeerJS,1000);
+      initializePeerJS();
     }
   }
 
